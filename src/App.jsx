@@ -3,12 +3,16 @@ import './App.css';
 
 import { mockData } from './mockData';
 import LineContainer from './components/LineContainer';
-import { isAlphaNumeric, isGeniusSectionHeader, isNotAlphaNumeric } from './constants';
+import Timer from './components/Timer';
+import { isGeniusSectionHeader, isNotAlphaNumeric } from './constants';
 
 const App = () => {
   const [lines, setLines] = useState([]);
   const [revealedWords, setRevealedWords] = useState(new Map());
   const [inputValue, setInputValue] = useState('');
+  const [inputActive, setInputActive] = useState(true);
+
+  const [score, setScore] = useState(0);
 
   const convertToLogicalWord = (input) => {
     let logicalWord = input.toLowerCase();
@@ -60,17 +64,30 @@ const App = () => {
     if (revealedWords.get(logicalWord) === false) {
       const updatedRevealedWords = new Map(revealedWords)
       updatedRevealedWords.set(logicalWord, true);
+      
+      setScore(score + 1);
+      
       setRevealedWords(updatedRevealedWords);
       setInputValue('');
     }
   }
 
+  const setTimer = () => {
+    let d = new Date();
+    d.setSeconds(d.getSeconds() + 480);
+    return d;
+  }
+
+  const onGameEnd = () => {
+    setInputActive(false);
+  }
+
   return (
     <div className="App">
       <div className='header-container'>
-        <h3 className="timer">0:00</h3>
+        <Timer expiryTimestamp={setTimer()} onEnd={onGameEnd} />
         <h1 className='song-title'>Hold Up</h1>
-        <h3 className='score'>0/100</h3>
+        <h3 className='score'>{score}/{revealedWords.size}</h3>
       </div>
       <div className='lyrics-container'>
         {lines.map((line, index) => {
@@ -80,7 +97,7 @@ const App = () => {
         })}
       </div>
       <div className='input-container'>
-        <input placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
+        <input disabled={!inputActive} placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
       </div>
     </div>
   );

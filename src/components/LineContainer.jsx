@@ -8,7 +8,6 @@ const LineContainer = (props) => {
     } = props;
 
     const [words, setWords] = useState([]);
-    const [display, setDisplay] = useState("");
 
     useEffect(() => {
         let words = [];
