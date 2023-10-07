@@ -1,9 +1,71 @@
+:root {
+  --primary-color: #865DFF;
+  --secondary-coor: #E384FF;
+  --background-color: #191825;
+  --text-color: white;
+}
+
 .App {
+  display: flex;
+  flex-direction: column;
+  
+  height: 100vh;
+  overflow: hidden;
+
+  text-align: center;
+
+  color: var(--text-color);
+}
+
+.header-container {
+  background-color:  var(--primary-color);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container h1 {
+  margin: 0;
+}
+
+.header-container h3 {
+  margin: 0;
+}
+
+.song-title {
+  padding: 0.5rem 0;
+}
+
+.timer {
+  padding: 0 1rem;
+}
+
+.score {
+  padding: 0 1rem;
+}
+
+
+.lyrics-container {
+  padding: 0 1rem;
+  background-color: var(--background-color);
+  
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.input-container input {
+  width: 100%;
+  border: none;
+  height: 3rem;
+
+  font-size: 1.5rem;
+
+  background-color: var(--secondary-coor);
+  color: var(--text-color);
   text-align: center;
 }
 
-.word {
-  margin: 0;
-  display: inline;
-  padding: 3px;
+textarea:focus, input:focus{
+  outline: none;
 }

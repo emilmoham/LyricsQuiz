@@ -67,13 +67,21 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Hold Up</h1>
-      {lines.map((line, index) => {
-        return (
-          <LineContainer key={index} line={line} revealedWords={revealedWords} />
-        );
-      })}
-      <input type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
+      <div className='header-container'>
+        <h3 className="timer">0:00</h3>
+        <h1 className='song-title'>Hold Up</h1>
+        <h3 className='score'>0/100</h3>
+      </div>
+      <div className='lyrics-container'>
+        {lines.map((line, index) => {
+          return (
+            <LineContainer key={index} line={line} revealedWords={revealedWords} />
+          );
+        })}
+      </div>
+      <div className='input-container'>
+        <input placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
+      </div>
     </div>
   );
 }
