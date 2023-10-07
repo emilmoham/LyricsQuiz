@@ -7,13 +7,21 @@ import Timer from './components/Timer';
 import { isGeniusSectionHeader, isNotAlphaNumeric } from './constants';
 import ReactModal from 'react-modal';
 
+import useApiService from './services/APIService';
+
 const App = () => {
+  const url = 'https://genius.com/Beyonce-hold-up-lyrics';
+  const [gameData, setGameData] = useState(null);
   const [lines, setLines] = useState([]);
   const [revealedWords, setRevealedWords] = useState(new Map());
   const [inputValue, setInputValue] = useState('');
   const [score, setScore] = useState(0);
 
   const [gameOver, setGameOver] = useState(false);
+
+  const {
+    getGameData
+  } = useApiService();
 
   const convertToLogicalWord = (input) => {
     let logicalWord = input.toLowerCase();
@@ -52,12 +60,6 @@ const App = () => {
 
     setRevealedWords(revealedWordsMap);
   }
-
-  useEffect(() => {
-    const sanitizedLyrics = createSanitizedLyricsSet(mockData);
-    createLogicalWordsMap(sanitizedLyrics);
-    setLines(sanitizedLyrics);
-  }, [mockData])
   
   const checkAnswer = (input) => {
     setInputValue(input);
@@ -83,11 +85,27 @@ const App = () => {
     setGameOver(true);
   }
 
+  useEffect(() => {
+    // getGameData(url).then((res) => {
+    //   console.log(res.data);
+    //   setGameData(res.data);
+    // });
+    setGameData(mockData);    
+  }, [url])
+
+  useEffect(() => {
+    if (gameData !== null && gameData.lyrics !== undefined) {
+      const sanitizedLyrics = createSanitizedLyricsSet(gameData.lyrics);
+      createLogicalWordsMap(sanitizedLyrics);
+      setLines(sanitizedLyrics);
+    }
+  }, [gameData])
+
   return (
     <div className="App">
       <div className='header-container'>
         <Timer expiryTimestamp={setTimer()} onEnd={onGameEnd} />
-        <h1 className='song-title'>Hold Up</h1>
+        <h1 className='song-title'>{gameData.title}</h1>
         <h3 className='score'>{score}/{revealedWords.size}</h3>
       </div>
       <div className='lyrics-container'>
