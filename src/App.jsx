@@ -5,14 +5,15 @@ import { mockData } from './mockData';
 import LineContainer from './components/LineContainer';
 import Timer from './components/Timer';
 import { isGeniusSectionHeader, isNotAlphaNumeric } from './constants';
+import ReactModal from 'react-modal';
 
 const App = () => {
   const [lines, setLines] = useState([]);
   const [revealedWords, setRevealedWords] = useState(new Map());
   const [inputValue, setInputValue] = useState('');
-  const [inputActive, setInputActive] = useState(true);
-
   const [score, setScore] = useState(0);
+
+  const [gameOver, setGameOver] = useState(false);
 
   const convertToLogicalWord = (input) => {
     let logicalWord = input.toLowerCase();
@@ -74,12 +75,12 @@ const App = () => {
 
   const setTimer = () => {
     let d = new Date();
-    d.setSeconds(d.getSeconds() + 480);
+    d.setSeconds(d.getSeconds() + 15);
     return d;
   }
 
   const onGameEnd = () => {
-    setInputActive(false);
+    setGameOver(true);
   }
 
   return (
@@ -97,8 +98,13 @@ const App = () => {
         })}
       </div>
       <div className='input-container'>
-        <input disabled={!inputActive} placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
+        <input disabled={gameOver} placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
       </div>
+      <ReactModal
+        isOpen={gameOver} >
+        <h1>Final Score:</h1>
+        <p>{score}/{revealedWords.size}</p>
+      </ReactModal>
     </div>
   );
 }

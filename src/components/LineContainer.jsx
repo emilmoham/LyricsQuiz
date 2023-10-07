@@ -12,6 +12,7 @@ const LineContainer = (props) => {
     useEffect(() => {
         let words = [];
 
+        // TODO: This logic should be moved up to the app class or something
         if (line.match(isGeniusSectionHeader) !== null) {
             words.push({
                 revealedText: line,
