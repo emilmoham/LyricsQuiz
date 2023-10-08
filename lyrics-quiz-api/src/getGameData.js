@@ -20,7 +20,8 @@ const extractLyrics = (fullHTML) => {
                 const lined = html.replace(/<br\s*[\/]?>/gi, "\n")
                 const stripped = lined.replace(/<[^>]+>/ig, '')
                 const trimmed = stripped.trim()
-                lyrics += trimmed
+                const final = trimmed + '\n';
+                lyrics += final
             })
         }
         if(!lyrics || fullHTML.includes('Lyrics for this song have yet to be')) {
