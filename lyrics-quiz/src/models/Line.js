@@ -1,7 +1,7 @@
 import { isGeniusSectionHeader } from "../constants";
-import Word from "./Word";
+import { Word } from "./Word";
 
-const Line = (input) => {
+export const Line = (input) => {
     const words = [];
     
     const isSectionHeader = input.match(isGeniusSectionHeader) !== null;
@@ -15,5 +15,3 @@ const Line = (input) => {
         words: words
     }
 }
-
-export default Line;

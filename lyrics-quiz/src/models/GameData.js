@@ -1,16 +1,17 @@
-import useApiService from "../services/APIService";
-import Line from "./Line";
-import { mockData } from "../mockData";
+import useApiService from '../services/APIService';
+import { Line } from './Line';
+import { mockData } from '../mockData';
+import { convertToLogicalWord } from './Helpers';
 
-const GameData = async (geniusUrl) => {
-    const {
-        // eslint-disable-next-line
-        getGeniusData
-    } = useApiService();
+export function initailizeGameData (geniusUrl) {
+    // const {
+    //     // eslint-disable-next-line
+    //     getGeniusData
+    // } = useApiService();
     
-    let title = "Loading";
+    let title = 'Loading';
     let lyrics = [];
-    let revealedWords = new Map();
+    let answerMap = new Map();
     
     let response = {}
     //response = await getGeniusData(geniusUrl);
@@ -30,36 +31,59 @@ const GameData = async (geniusUrl) => {
         return finalLineSet;
     }
 
-    const createLogicalWordsMap = (lineSet) => {
-        let revealedWordsMap = new Map();
-
+    const initializeAnswerMap = (lineSet) => {
+        const myMap = new Map()
         for(let i = 0; i < lineSet.length; i++) {
             let line = lineSet[i];
             
             if (line.isSectionHeader)
                 continue;
-
+    
             for (let j = 0; j < line.words.length; j++) {
                 let word = line.words[j].logicalText;
-                if (revealedWordsMap.get(word) === undefined)
-                    revealedWordsMap.set(word, false);
+                if (myMap.get(word) === undefined)
+                    myMap.set(word, false);
             }
         }
-        
-        return revealedWordsMap;
+        return myMap;
     }
 
+    const getCurrentScore = (newMap) => {
+        let count = 0;
+        for (const [key, value] of newMap) {
+            if (value) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
     if (response) {
         title = response.data.title;
         lyrics = createSanitizeLyricsSet(response.data.lyrics);
-        revealedWords = createLogicalWordsMap(lyrics);
+        answerMap = initializeAnswerMap(lyrics);
     }
 
     return {
         title: title,
         lyrics: lyrics,
-        revealedWords: revealedWords
+        answerMap: answerMap,
+        currentScore: getCurrentScore(answerMap),
+        maxPossibleScore: answerMap.size,
     }
 }
 
-export default GameData;
+export function createGameDataCallbacks(setData) {
+    return {
+        checkAnswer: (key) => {
+            const logicalWord = convertToLogicalWord(key);
+            setData((prevData) => {
+                if (prevData.answerMap.get(logicalWord) === false) {
+                    const newAnswerMap = new Map(prevData.answerMap);
+                    newAnswerMap.set(logicalWord, true);
+                    return {...prevData, currentScore: prevData.currentScore + 1, answerMap: newAnswerMap}
+                }
+            });
+        }
+    }
+}

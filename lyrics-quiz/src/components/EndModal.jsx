@@ -4,23 +4,11 @@ import ReactModal from 'react-modal';
 const EndModal = (props) => {
     const {
         isGameOver,
-        revealedWords,
+        gameData,
         el
     } = props;
 
     const [showModal, setShowModal] = useState(false);
-
-    const countRevealedWords = (revealedWordsMap) => {
-        if (revealedWordsMap === undefined)
-            return 0;
-        let count = 0;
-        for (const [key, value] of revealedWordsMap) {
-            if (value) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     useEffect(() => {
         setShowModal(isGameOver);
@@ -36,7 +24,7 @@ const EndModal = (props) => {
         isOpen={showModal} 
         appElement={el}>
         <h1>Final Score:</h1>
-        <p>{countRevealedWords(revealedWords)}/{revealedWords.size}</p>
+        <p>{gameData.currentScore}/{gameData.maxPossibleScore}</p>
         <button onClick={closeModal}>Close</button>
     </ReactModal>
     );

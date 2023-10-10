@@ -11,7 +11,7 @@ const Lyrics = (props) => {
     <div className='lyrics-container'>
         {gameData.lyrics.map((line, index) => {
           return (
-            <LineContainer key={index} line={line} revealedWords={gameData.revealedWords} />
+            <LineContainer key={index} line={line} revealedWords={gameData.answerMap} />
           );
         })}
     </div>

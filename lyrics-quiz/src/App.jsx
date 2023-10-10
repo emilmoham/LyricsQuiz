@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import './App.css';
+import { initailizeGameData, createGameDataCallbacks } from './models/GameData'
 
 import QuizHeader from './components/QuizHeader';
 import Lyrics from './components/Lyrics';
 import AnswerInput from './components/AnswerInput';
 import EndModal from './components/EndModal';
-import GameData from './models/GameData';
+
+import './App.css';
 
 const App = () => {
   const url = 'https://genius.com/Beyonce-hold-up-lyrics';
 
-  const [gameData, setGameData] = useState({
-    title: "Loading...",
-    lyrics: [],
-    revealedWords: new Map()
-  });
-
-  GameData(url).then((data) => {
-    setGameData(data);
-  });
-
-  const [score, setScore] = useState(0);
+  // Game Data
   const [gameOver, setGameOver] = useState(false);
-
+  
+  const [gameData, setGameData] = useState(initailizeGameData(url));
+  const callbacks = createGameDataCallbacks(setGameData);
+  
   const onGameEnd = () => {
     setGameOver(true);
   }
 
+  useEffect(() => {
+    if(gameData.currentScore === gameData.maxPossibleScore)
+      setGameOver(true);
+  }, [gameData.currentScore])
+
+  
   return (
     <div className="App">
-      <QuizHeader songTitle={gameData.title} revealedWords={gameData.revealedWords} onTimerExpire={onGameEnd} />
+      <QuizHeader gameData={gameData} allotedGameTime={60} onTimerExpire={onGameEnd} />
       <Lyrics gameData={gameData} />
-      <AnswerInput gameData={gameData} isGameOver={gameOver}/>
-      <EndModal isGameOver={gameOver} revealedWords={gameData.revealedWords} />
+      <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} isGameOver={gameOver} />
+      <EndModal isGameOver={gameOver} gameData={gameData} />
     </div>
   );
 }

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { convertToLogicalWord } from "../models/Helpers";
 
 const AnswerInput = (props) => {
     const {
         gameData,
+        onCheckAnswer,
         isGameOver
     } = props;
 
@@ -11,17 +12,12 @@ const AnswerInput = (props) => {
 
     const checkAnswer = (input) => {
         setInputValue(input);
-        const logicalWord = convertToLogicalWord(input); 
-        if (gameData.revealedWords.get(logicalWord) === false) {
-            const updatedRevealedWords = new Map(gameData.revealedWords)
-            updatedRevealedWords.set(logicalWord, true);
-            
-            //setScore(score + 1);
-            
-            //setRevealedWords(updatedRevealedWords);
+        let sanitizedInput = convertToLogicalWord(input);
+        if (gameData.answerMap.get(sanitizedInput) === false) {
+            onCheckAnswer(sanitizedInput);
             setInputValue('');
         }
-      }
+    }
 
     return (
     <div className='input-container'>
