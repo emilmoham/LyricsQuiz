@@ -21,7 +21,11 @@ const AnswerInput = (props) => {
 
     return (
     <div className='input-container'>
-        <input disabled={isGameOver} placeholder='Enter Lyrics Here' type="text" value={inputValue} onChange={(e) => checkAnswer(e.target.value)}></input>
+        <input 
+            disabled={isGameOver} 
+            placeholder='Enter Lyrics Here' 
+            type="text" value={inputValue} 
+            onChange={(e) => checkAnswer(e.target.value)} />
     </div>);
 }
 

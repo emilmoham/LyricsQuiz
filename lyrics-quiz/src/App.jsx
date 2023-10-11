@@ -31,8 +31,8 @@ const App = () => {
   return (
     <div className="App">
       <QuizHeader gameData={gameData} allotedGameTime={60} onTimerExpire={onGameEnd} />
-      <Lyrics gameData={gameData} />
       <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} isGameOver={gameOver} />
+      <Lyrics gameData={gameData} />
       <EndModal isGameOver={gameOver} gameData={gameData} />
     </div>
   );
