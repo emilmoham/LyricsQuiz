@@ -12,6 +12,7 @@ export function initailizeGameData (geniusUrl) {
     let title = 'Loading';
     let lyrics = [];
     let answerMap = new Map();
+    let isGameOver = false;
     
     let response = {}
     //response = await getGeniusData(geniusUrl);
@@ -84,6 +85,11 @@ export function createGameDataCallbacks(setData) {
                     return {...prevData, currentScore: prevData.currentScore + 1, answerMap: newAnswerMap}
                 }
             });
-        }
+        },
+        endGame: () => {
+            setData((prevData) =>{
+                return {...prevData, isGameOver: true}
+            })
+        } 
     }
 }

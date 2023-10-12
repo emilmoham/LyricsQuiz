@@ -5,7 +5,6 @@ const AnswerInput = (props) => {
     const {
         gameData,
         onCheckAnswer,
-        isGameOver
     } = props;
 
     const [inputValue, setInputValue] = useState('');
@@ -22,7 +21,7 @@ const AnswerInput = (props) => {
     return (
     <div className='input-container'>
         <input 
-            disabled={isGameOver} 
+            disabled={gameData.isGameOver} 
             placeholder='Enter Lyrics Here' 
             type="text" value={inputValue} 
             onChange={(e) => checkAnswer(e.target.value)} />

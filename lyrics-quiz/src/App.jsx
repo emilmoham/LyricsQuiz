@@ -13,27 +13,25 @@ const App = () => {
   const url = 'https://genius.com/Beyonce-hold-up-lyrics';
 
   // Game Data
-  const [gameOver, setGameOver] = useState(false);
-  
   const [gameData, setGameData] = useState(initailizeGameData(url));
   const callbacks = createGameDataCallbacks(setGameData);
   
   const onGameEnd = () => {
-    setGameOver(true);
+    callbacks.endGame();
   }
 
   useEffect(() => {
     if(gameData.currentScore === gameData.maxPossibleScore)
-      setGameOver(true);
+      callbacks.endGame();
   }, [gameData.currentScore])
 
   
   return (
     <div className="App">
       <QuizHeader gameData={gameData} allotedGameTime={5} onTimerExpire={onGameEnd} />
-      <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} isGameOver={gameOver} />
+      <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
       <Lyrics gameData={gameData} />
-      <EndModal isGameOver={gameOver} gameData={gameData} />
+      <EndModal gameData={gameData} />
     </div>
   );
 }

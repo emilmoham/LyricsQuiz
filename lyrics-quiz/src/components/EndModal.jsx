@@ -5,15 +5,14 @@ import './EndModal.css';
 
 const EndModal = (props) => {
     const {
-        isGameOver,
         gameData,
     } = props;
 
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        setShowModal(isGameOver);
-    }, [isGameOver])
+        setShowModal(gameData.isGameOver);
+    }, [gameData.isGameOver])
 
     const closeModal = (e) => {
         console.log('closing');
