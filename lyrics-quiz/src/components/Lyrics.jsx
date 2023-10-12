@@ -10,8 +10,11 @@ const Lyrics = (props) => {
     return (
     <div className='lyrics-container'>
         {gameData.lyrics.map((line, index) => {
+          if (line.isSectionHeader) {
+            return (<h4>{line.words.map((word) => {return word.revealedText + ' '})}</h4>)
+          }
           return (
-            <LineContainer key={index} line={line} revealedWords={gameData.answerMap} />
+            <LineContainer key={index} line={line} revealedWords={gameData.answerMap} isGameOver={gameData.isGameOver} />
           );
         })}
     </div>
