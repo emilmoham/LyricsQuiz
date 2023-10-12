@@ -19,7 +19,7 @@ const QuizHeader = (props) => {
     <div className='quiz-header'>
         <Timer expiryTimestamp={setTimer()} onEnd={onTimerExpire} />
         <h1 className='song-title'>{gameData.title}</h1>
-        <h3 className='score'>{gameData.currentScore}/{gameData.maxPossibleScore}</h3>
+        <h3 className='header-side-content score'>{gameData.currentScore}/{gameData.maxPossibleScore}</h3>
     </div>
     );
 }

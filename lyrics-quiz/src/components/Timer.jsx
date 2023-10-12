@@ -21,7 +21,7 @@ const Timer = (props) => {
       } = useTimer({ expiryTimestamp, onExpire: () => onEnd() });
 
 
-    return (<h3 className='timer'>
+    return (<h3 className='header-side-content timer'>
         {minutes}:{seconds.toString().padStart(2,'0')}
     </h3>);
 }
