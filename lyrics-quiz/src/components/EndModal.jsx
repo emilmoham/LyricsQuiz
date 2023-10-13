@@ -4,16 +4,14 @@ import ReactModal from 'react-modal';
 const EndModal = (props) => {
     const {
         gameData,
+        showModal,
+        onCloseModal
     } = props;
 
-    const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        setShowModal(gameData.isGameOver);
-    }, [gameData.isGameOver])
-
     const calculateTotalGameTime = () => {
-        const totalGameSeconds =  Math.floor((gameData.endTimestamp - gameData.startTimestamp) / 1000);
+        let totalGameSeconds = 0;
+        if (gameData.startTimestamp !== null && gameData.endTimestamp !== null)
+            totalGameSeconds =  Math.floor((gameData.endTimestamp - gameData.startTimestamp) / 1000);
         const seconds = totalGameSeconds % 60;
         const minutes = Math.floor(totalGameSeconds / 60);
         return {totalGameSeconds: totalGameSeconds, minutes: minutes, seconds: seconds}
@@ -21,11 +19,7 @@ const EndModal = (props) => {
 
     const renderElapsedGameTime = () => {
         const elapsedTime = calculateTotalGameTime();
-        return <h3>{elapsedTime.minutes}:{elapsedTime.seconds}</h3> 
-    }
-    
-    const closeModal = (e) => {
-        setShowModal(false);
+        return <h3>{elapsedTime.minutes}:{elapsedTime.seconds.toString().padStart(2,'0')}</h3> 
     }
 
     return (
@@ -34,7 +28,7 @@ const EndModal = (props) => {
         ariaHideApp={false}
         overlayClassName={'modal-overlay'}
         className={'modal-container'}>
-        <button className={'close-modal-button'} onClick={closeModal}>X</button>
+        <button className={'close-modal-button'} onClick={onCloseModal}>X</button>
         <h1>Final Score:</h1>
         <h3>{gameData.currentScore}/{gameData.maxPossibleScore}</h3>
         <div>in</div>

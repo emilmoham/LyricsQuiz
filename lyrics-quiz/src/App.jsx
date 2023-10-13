@@ -16,6 +16,8 @@ const App = () => {
   // Game Data
   const [gameData, setGameData] = useState(initializeGameData(url));
   const callbacks = createGameDataCallbacks(setGameData);
+
+  const [showResults, setShowResults] = useState(false);
   
   const startGame = () => {
     callbacks.startGame();
@@ -23,6 +25,19 @@ const App = () => {
 
   const endGame = () => {
     callbacks.endGame();
+    setShowResults(true);
+  }
+
+  const onClickEndQuizButton = () => {
+    if (gameData.isGameOver) {
+      setShowResults(true);
+    } else {
+      endGame();
+    }
+  }
+
+  const hideResults = () => {
+    setShowResults(false);
   }
 
   useEffect(() => {
@@ -33,10 +48,13 @@ const App = () => {
   return (
     <div className="App">
       <QuizHeader gameData={gameData} onTimerExpire={endGame} />
-      <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
+      <div className='user-input-container'>
+        <button className='end-quiz-button' onClick={onClickEndQuizButton}>{gameData.isGameOver ? 'Show Results' : 'Reveal Answers'}</button>
+        <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
+      </div>
       <Lyrics gameData={gameData} />
       <StartModal gameData={gameData} startGame={startGame} />
-      <EndModal gameData={gameData} />
+      <EndModal gameData={gameData} showModal={showResults} onCloseModal={hideResults}/>
     </div>
   );
 }
