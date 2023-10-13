@@ -1,5 +1,5 @@
 import { convertToLogicalWord } from './Helpers';
-import { isAlphaNumeric, isGeniusSectionHeader } from "../constants";
+import { isAlphaNumeric } from "../constants";
 
 export const Word = (input, isSectionHeader) => {
     const revealedText = input;

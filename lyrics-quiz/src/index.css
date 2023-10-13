@@ -22,15 +22,7 @@ body {
 .home-main-container {
   color: var(--text-color);
   text-align: center;
-}
-
-.step {
-
-}
-
-li.step a {
-  text-decoration: none;
-  color: #FFFF64;
+  background-color: var(--primary-color);
 }
 
 .quiz-container {
