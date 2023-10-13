@@ -8,11 +8,16 @@ import AnswerInput from '../components/AnswerInput';
 import EndModal from '../components/EndModal';
 import StartModal from '../components/StartModal';
 
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 const Quiz = () => {
-    const url = 'https://genius.com/Beyonce-hold-up-lyrics';
+  const {
+    song
+  } = useParams();
 
   // Game Data
-  const [gameData, setGameData] = useState(initializeGameData(url));
+  const [gameData, setGameData] = useState(initializeGameData(null));
   const callbacks = createGameDataCallbacks(setGameData);
 
   const [showResults, setShowResults] = useState(false);
@@ -42,6 +47,12 @@ const Quiz = () => {
     if(gameData.currentScore === gameData.maxPossibleScore)
       callbacks.endGame();
   }, [gameData.currentScore])
+
+  useEffect(() => {
+    axios.get(`http://localhost:8001/getGameData/${song}`).then((response) => {
+      setGameData(initializeGameData(response));
+    });
+  }, [])
   
   return (
     <div className='quiz-container'>

@@ -1,21 +1,13 @@
-import useApiService from '../services/APIService';
 import { Line } from './Line';
-import { mockData } from '../mockData';
+//import { mockData } from '../mockData';
 import { convertToLogicalWord } from './Helpers';
 
-export function initializeGameData (geniusUrl) {
-    // const {
-    //     // eslint-disable-next-line
-    //     getGeniusData
-    // } = useApiService();
-    
+export function initializeGameData (response) {
     let title = 'Loading';
     let lyrics = [];
     let answerMap = new Map();
     
-    let response = {}
-    //response = await getGeniusData(geniusUrl);
-    response.data = mockData;
+    //response = await axios.get(``);
 
     const createSanitizeLyricsSet = (rawLyrics) => {
         let finalLineSet = [];
@@ -74,7 +66,7 @@ export function initializeGameData (geniusUrl) {
         startTimestamp: null,
         endTimestamp: null,
         gameRunning: false,
-        allowedGameSeconds: 70  
+        allowedGameSeconds: 480  
     }
 }
 
