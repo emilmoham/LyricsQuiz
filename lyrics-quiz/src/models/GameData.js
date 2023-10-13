@@ -3,7 +3,7 @@ import { Line } from './Line';
 import { mockData } from '../mockData';
 import { convertToLogicalWord } from './Helpers';
 
-export function initailizeGameData (geniusUrl) {
+export function initializeGameData (geniusUrl) {
     // const {
     //     // eslint-disable-next-line
     //     getGeniusData
@@ -12,7 +12,6 @@ export function initailizeGameData (geniusUrl) {
     let title = 'Loading';
     let lyrics = [];
     let answerMap = new Map();
-    let isGameOver = false;
     
     let response = {}
     //response = await getGeniusData(geniusUrl);
@@ -71,6 +70,11 @@ export function initailizeGameData (geniusUrl) {
         answerMap: answerMap,
         currentScore: getCurrentScore(answerMap),
         maxPossibleScore: answerMap.size,
+        isGameOver: false,
+        startTimestamp: null,
+        endTimestamp: null,
+        gameRunning: false,
+        allowedGameSeconds: 70  
     }
 }
 
@@ -86,10 +90,15 @@ export function createGameDataCallbacks(setData) {
                 }
             });
         },
+        startGame: () => {
+            setData((prevData) => {
+                return {...prevData, gameRunning: true, startTimestamp: new Date()}
+            });
+        },
         endGame: () => {
             setData((prevData) =>{
-                return {...prevData, isGameOver: true}
-            })
+                return {...prevData, gameRunning: false, isGameOver: true, endTimestamp: new Date()}
+            });
         } 
     }
 }

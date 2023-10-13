@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 const Timer = (props) => {
     const {
         expiryTimestamp,
-        onEnd
+        onEnd,
+        gameRunning
     } = props;
 
     const {
@@ -14,12 +15,18 @@ const Timer = (props) => {
         // hours,
         // days,
         // isRunning,
-        // start,
-        // pause,
+        start,
+        pause,
         //resume,
         //restart,
-      } = useTimer({ expiryTimestamp, onExpire: () => onEnd() });
+      } = useTimer({ autoStart: false, expiryTimestamp, onExpire: () => onEnd() });
 
+    useEffect(() => {
+        if (gameRunning)
+            start();
+        else
+            pause();
+    }, [gameRunning])
 
     return (<h3 className='header-side-content timer'>
         {minutes}:{seconds.toString().padStart(2,'0')}

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 
-import './EndModal.css';
-
 const EndModal = (props) => {
     const {
         gameData,
@@ -14,8 +12,19 @@ const EndModal = (props) => {
         setShowModal(gameData.isGameOver);
     }, [gameData.isGameOver])
 
+    const calculateTotalGameTime = () => {
+        const totalGameSeconds =  Math.floor((gameData.endTimestamp - gameData.startTimestamp) / 1000);
+        const seconds = totalGameSeconds % 60;
+        const minutes = Math.floor(totalGameSeconds / 60);
+        return {totalGameSeconds: totalGameSeconds, minutes: minutes, seconds: seconds}
+    }
+
+    const renderElapsedGameTime = () => {
+        const elapsedTime = calculateTotalGameTime();
+        return <h3>{elapsedTime.minutes}:{elapsedTime.seconds}</h3> 
+    }
+    
     const closeModal = (e) => {
-        console.log('closing');
         setShowModal(false);
     }
 
@@ -28,11 +37,13 @@ const EndModal = (props) => {
         <button className={'close-modal-button'} onClick={closeModal}>X</button>
         <h1>Final Score:</h1>
         <h3>{gameData.currentScore}/{gameData.maxPossibleScore}</h3>
+        <div>in</div>
+        {renderElapsedGameTime()}
         <div className='spacer'></div>
-        <button className='share-button'>Share</button>
+        <button className='menu-button share-button'>Copy Results</button>
         <div className='end-navigation'>
-            <button>New</button>
-            <button>Retry</button>
+            <button className='menu-button end-control'>New Song</button>
+            <button className='menu-button end-control'>Retry</button>
         </div>
     </ReactModal>
     );

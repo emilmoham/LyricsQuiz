@@ -13,7 +13,7 @@ const LineContainer = (props) => {
         }
 
         if (isGameOver) {
-            return <span class='missed-word'>{word.revealedText + ' '}</span>
+            return <span className='missed-word'>{word.revealedText + ' '}</span>
         }
 
         return word.hiddenText + ' ';

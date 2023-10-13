@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { initailizeGameData, createGameDataCallbacks } from './models/GameData'
+import { initializeGameData, createGameDataCallbacks } from './models/GameData'
 
 import QuizHeader from './components/QuizHeader';
 import Lyrics from './components/Lyrics';
@@ -8,15 +8,20 @@ import AnswerInput from './components/AnswerInput';
 import EndModal from './components/EndModal';
 
 import './App.css';
+import StartModal from './components/StartModal';
 
 const App = () => {
   const url = 'https://genius.com/Beyonce-hold-up-lyrics';
 
   // Game Data
-  const [gameData, setGameData] = useState(initailizeGameData(url));
+  const [gameData, setGameData] = useState(initializeGameData(url));
   const callbacks = createGameDataCallbacks(setGameData);
   
-  const onGameEnd = () => {
+  const startGame = () => {
+    callbacks.startGame();
+  }
+
+  const endGame = () => {
     callbacks.endGame();
   }
 
@@ -24,13 +29,13 @@ const App = () => {
     if(gameData.currentScore === gameData.maxPossibleScore)
       callbacks.endGame();
   }, [gameData.currentScore])
-
   
   return (
     <div className="App">
-      <QuizHeader gameData={gameData} allotedGameTime={5} onTimerExpire={onGameEnd} />
+      <QuizHeader gameData={gameData} onTimerExpire={endGame} />
       <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
       <Lyrics gameData={gameData} />
+      <StartModal gameData={gameData} startGame={startGame} />
       <EndModal gameData={gameData} />
     </div>
   );

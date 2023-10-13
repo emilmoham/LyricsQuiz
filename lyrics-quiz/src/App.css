@@ -3,6 +3,7 @@
   --secondary-coor: #E384FF;
   --background-color: #191825;
   --text-color: white;
+  --missed-word-text-color: red;
 }
 
 .App {
@@ -51,7 +52,7 @@
 }
 
 .missed-word {
-  color: red;
+  color: var(--missed-word-text-color);
 }
 
 .input-container input {
@@ -93,4 +94,92 @@ textarea:focus, input:focus{
     font-size: 1.5rem;
     padding: .8rem 0;
   }
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-container {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color: var(--background-color); 
+  padding: 20px;
+
+  width: 30vh;
+  overflow-y: auto; 
+
+  border-radius: 10px;
+
+  border: rgba(200,200,200, 0.8);
+  color: var(--text-color);
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  transition: transform 0.3s ease;
+}
+
+button.close-modal-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  margin: 10px;
+
+  border: none;
+  background-color: rgba(0,0,0,0);
+  color: var(--text-color);
+
+  border-radius: 15%;
+
+  display: block;
+
+  z-index: 10;
+}
+
+button.close-modal-button:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+.modal-container h1 {
+  margin: .5rem 0 ;
+}
+
+.modal-container h3 {
+  margin: .5rem 0;
+}
+
+.modal-container button.menu-button {
+  border-radius: 50px;
+  border: none;
+  padding: .3rem .6rem;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  margin: 1rem 0;
+}
+
+.modal-container button.menu-button:hover {
+  background-color: #48318A;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.end-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+button.end-control {
+  width: 47%;
 }
