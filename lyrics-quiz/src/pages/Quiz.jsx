@@ -51,6 +51,11 @@ const Quiz = () => {
   useEffect(() => {
     axios.get(`http://localhost:8001/getGameData/${song}`).then((response) => {
       setGameData(initializeGameData(response));
+    }, (reason) => {
+      console.log(reason.message);
+      setGameData((prevData) => {
+        return { ...prevData, title: "Error Generating Quiz"}
+      })
     });
   }, [])
   

@@ -36,18 +36,20 @@ const extractLyrics = (fullHTML) => {
 const getGameData = async (resource) => {
     let gameData = {}            
     gameData.link = `https://genius.com/${resource}`;
+    gameData.title = 'Error Dowloading Lyrics Data';
+    gameData.lyrics = '';
 
-    const res = await axios.get(gameData.link);
-
-    try {
-        const fullHTML = res.data;
-        gameData.title = extractTitle(fullHTML)
-        gameData.lyrics = extractLyrics(fullHTML);
-    } catch (e) {
-        console.log(e);
-        gameData.title = null;
-        gameData.lyrics = null;
-    }
+    const res = await axios.get(gameData.link).then((result) => {
+        try {
+            const fullHTML = res.data;
+            gameData.title = extractTitle(fullHTML)
+            gameData.lyrics = extractLyrics(fullHTML);
+        } catch (e) {
+            console.log(e);
+        }
+    }, (reason) => {
+        console.error(reason.message);
+    });
 
     return gameData;
 }
