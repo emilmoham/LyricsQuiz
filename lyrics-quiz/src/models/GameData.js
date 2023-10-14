@@ -66,7 +66,7 @@ export function initializeGameData (response) {
         startTimestamp: null,
         endTimestamp: null,
         gameRunning: false,
-        allowedGameSeconds: 480  
+        allowedGameSeconds: 480
     }
 }
 

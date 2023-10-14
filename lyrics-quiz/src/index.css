@@ -273,6 +273,10 @@ button.close-modal-button:hover {
   background-color: var(--primary-hover);
 }
 
+.modal-container button.menu-button:disabled {
+  background-color: #AAAAAA;
+}
+
 .spacer {
   flex-grow: 1;
 }

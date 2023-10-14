@@ -13,17 +13,13 @@ const StartModal = (props) => {
         setShowModal(gameData.startTimestamp === null);
     }, [gameData.startTimestamp])
 
-    const onClickStart = () => {
-        startGame();
-    }
-
     return (
     <ReactModal 
         isOpen={showModal} 
         ariaHideApp={false}
         overlayClassName={'modal-overlay'}
         className={'modal-container'}>
-        <button className='menu-button' onClick={startGame}>Start Quiz</button>
+        <button disabled={gameData.lyrics.length === 0} className='menu-button' onClick={startGame}>Start Quiz</button>
     </ReactModal>
     );
 }
