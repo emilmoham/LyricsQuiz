@@ -7,13 +7,13 @@ const LineContainer = (props) => {
         isGameOver
     } = props;
 
-    const renderWord = (word) => {
+    const renderWord = (word, key) => {
         if (revealedWords.get(word.logicalText)) {
             return (word.revealedText + ' ');
         }
 
         if (isGameOver) {
-            return <span className='missed-word'>{word.revealedText + ' '}</span>
+            return <span key={key} className='missed-word'>{word.revealedText + ' '}</span>
         }
 
         return word.hiddenText + ' ';
@@ -21,7 +21,7 @@ const LineContainer = (props) => {
 
     return (
         <div className="line">
-            <p>{line.words.map((word) => renderWord(word))}</p>
+            <p>{line.words.map((word, key) => renderWord(word, key))}</p>
         </div>
     );
 }

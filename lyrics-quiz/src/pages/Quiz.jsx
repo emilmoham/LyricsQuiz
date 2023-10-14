@@ -44,9 +44,10 @@ const Quiz = () => {
   }
 
   useEffect(() => {
-    if(gameData.currentScore === gameData.maxPossibleScore)
-      callbacks.endGame();
-  }, [gameData.currentScore])
+    if(gameData.currentScore === gameData.maxPossibleScore && gameData.maxPossibleScore > 0) {
+      endGame();
+    }
+  }, [gameData.currentScore, gameData.maxPossibleScore])
 
   useEffect(() => {
     axios.get(`http://localhost:8001/getGameData/${song}`).then((response) => {

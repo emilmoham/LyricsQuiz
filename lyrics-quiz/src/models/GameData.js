@@ -1,13 +1,12 @@
 import { Line } from './Line';
 //import { mockData } from '../mockData';
-import { convertToLogicalWord } from './Helpers';
+import { convertToLogicalWord, getCurrentScore } from './Helpers';
 
 export function initializeGameData (response) {
     let title = 'Loading';
     let lyrics = [];
     let answerMap = new Map();
-    
-    //response = await axios.get(``);
+    let maxScore = 0;
 
     const createSanitizeLyricsSet = (rawLyrics) => {
         let finalLineSet = [];
@@ -40,15 +39,17 @@ export function initializeGameData (response) {
         return myMap;
     }
 
-    const getCurrentScore = (newMap) => {
-        let count = 0;
-        for (const [key, value] of newMap) {
-            if (value) {
-                count++;
+    const getMaximumPossibleScore = (lyricSet) => {
+        let maxPossibleScore = 0;
+        for(let i = 0; i < lyricSet.length; i++) {
+            let line = lyricSet[i];
+            if (!line.isSectionHeader) {
+                maxPossibleScore += line.words.length;
             }
         }
-        return count;
+        return maxPossibleScore;
     }
+
     
     if (response) {
         title = response.data.title;
@@ -60,8 +61,8 @@ export function initializeGameData (response) {
         title: title,
         lyrics: lyrics,
         answerMap: answerMap,
-        currentScore: getCurrentScore(answerMap),
-        maxPossibleScore: answerMap.size,
+        currentScore: 0,
+        maxPossibleScore: getMaximumPossibleScore(lyrics),
         isGameOver: false,
         startTimestamp: null,
         endTimestamp: null,
@@ -78,7 +79,20 @@ export function createGameDataCallbacks(setData) {
                 if (prevData.answerMap.get(logicalWord) === false) {
                     const newAnswerMap = new Map(prevData.answerMap);
                     newAnswerMap.set(logicalWord, true);
-                    return {...prevData, currentScore: prevData.currentScore + 1, answerMap: newAnswerMap}
+
+                    // There must be a better way to do this
+                    let newScore = 0;
+
+                    for (let i = 0; i < prevData.lyrics.length; i++) {
+                        let line = prevData.lyrics[i];
+                        if (!line.isSectionHeader) {
+                            line.words.map((word) => {
+                                newScore += newAnswerMap.get(word.logicalText);
+                            })
+                        }
+                    }
+
+                    return {...prevData, currentScore: newScore, answerMap: newAnswerMap}
                 }
             });
         },
@@ -88,9 +102,9 @@ export function createGameDataCallbacks(setData) {
             });
         },
         endGame: () => {
-            setData((prevData) =>{
+            setData((prevData) => {
                 return {...prevData, gameRunning: false, isGameOver: true, endTimestamp: new Date()}
             });
-        } 
+        }
     }
 }
