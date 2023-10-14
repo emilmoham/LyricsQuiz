@@ -41,7 +41,7 @@ const getGameData = async (resource) => {
 
     const res = await axios.get(gameData.link).then((result) => {
         try {
-            const fullHTML = res.data;
+            const fullHTML = result.data;
             gameData.title = extractTitle(fullHTML)
             gameData.lyrics = extractLyrics(fullHTML);
         } catch (e) {
