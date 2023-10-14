@@ -9,7 +9,7 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000",     // create-react-app's default port 3000
-            "webRoot": "${workspaceRoot}/lyrics-quiz/src"
+            "webRoot": "${workspaceRoot}/src"
         }
     ]
 }

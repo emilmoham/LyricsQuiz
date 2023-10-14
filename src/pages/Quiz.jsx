@@ -50,7 +50,7 @@ const Quiz = () => {
   }, [gameData.currentScore, gameData.maxPossibleScore])
 
   useEffect(() => {
-    axios.get(`http://localhost:8001/getGameData/${song}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`).then((response) => {
       setGameData(initializeGameData(response));
     }, (reason) => {
       console.log(reason.message);
