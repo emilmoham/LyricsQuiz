@@ -1,25 +1,35 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { isValidGeniusUrl } from '../constants';
 
 const Home = () => {
     const navigate = useNavigate();
 
-    const [inputValue, setInputValue] = useState('');
+    const inputRef = useRef();
+    const [showValidationError, setShowValidationError] = useState(false);
 
     const onClickBegin = () => {
-        let sanitizedInput = inputValue.split('genius.com/')[1];
-        console.log(sanitizedInput);
-        navigate(`/${sanitizedInput}`)
+        const input = inputRef.current.value.trim();
+        const matches = isValidGeniusUrl.exec(input);
+
+        if (matches === null || matches.length !== 2)
+            setShowValidationError(true);
+        else {
+            navigate(`/${matches[1]}`)
+        }
     }
 
     return (
     <div className='home-main-container' >
-        <h3>Copy the URL for a song on <a href="https://www.genius.com" target='_blank' rel="noreferrer">Genius.com</a></h3>
-        <input 
-        placeholder='Paste the genius url here'
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)} />
-        <button onClick={onClickBegin}>Begin your quiz</button>
+        <div className='begin-quiz-form'>
+            <h1>Weclome to Lyric Quiz</h1>
+            <h3>Copy the URL for a song from <a href="https://genius.com" target='_blank' rel="noreferrer">Genius.com</a></h3>
+            <input 
+            ref={inputRef}
+            placeholder='Paste the URL here: (i.e. https://genius.com/Lil-pump-gucci-gang-lyrics)' />
+            {showValidationError && <div className='validation-error-container'>That URL doesn't look right, please check it and try again</div>}
+            <button onClick={onClickBegin}>Generate your quiz</button>
+        </div>
     </div>)
 }
 
