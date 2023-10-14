@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 
 const extractTitle = (fullHTML) => {
     const $ = cheerio.load(fullHTML);
-    return $('title').html().split('|')[0].trim();
+    return $('title').text().split('|')[0].trim();
 }
 
 const extractLyrics = (fullHTML) => {
