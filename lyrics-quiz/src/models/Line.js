@@ -6,7 +6,7 @@ export const Line = (input) => {
     
     const isSectionHeader = input.match(isGeniusSectionHeader) !== null;
 
-    input.split(' ').forEach((word) => {
+    input.split(/\s/g).forEach((word) => {
         words.push(Word(word, isSectionHeader))
     });
     
