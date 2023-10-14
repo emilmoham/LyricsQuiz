@@ -9,14 +9,14 @@ const LineContainer = (props) => {
 
     const renderWord = (word, key) => {
         if (revealedWords.get(word.logicalText)) {
-            return (word.revealedText + ' ');
+            return (word.revealedText + word.separator);
         }
 
         if (isGameOver) {
-            return <span key={key} className='missed-word'>{word.revealedText + ' '}</span>
+            return <span key={key} className='missed-word'>{word.revealedText + word.separator}</span>
         }
 
-        return word.hiddenText + ' ';
+        return word.hiddenText + word.separator;
     }
 
     return (

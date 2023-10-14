@@ -1,9 +1,10 @@
 import { convertToLogicalWord } from './Helpers';
 import { isAlphaNumeric } from "../constants";
 
-export const Word = (input, isSectionHeader) => {
+export const Word = (input, separationCharacter, isSectionHeader) => {
     const revealedText = input;
 
+    let separator = separationCharacter === undefined ? '' : separationCharacter;
     let hiddenText = '';
     let logicalText = '';
     
@@ -19,5 +20,6 @@ export const Word = (input, isSectionHeader) => {
         revealedText: revealedText,
         hiddenText: hiddenText,
         logicalText: logicalText,
+        separator: separator,
     }
 }

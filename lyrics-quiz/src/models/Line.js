@@ -1,4 +1,4 @@
-import { isGeniusSectionHeader } from "../constants";
+import { isGeniusSectionHeader, wordSplice } from "../constants";
 import { Word } from "./Word";
 
 export const Line = (input) => {
@@ -6,10 +6,17 @@ export const Line = (input) => {
     
     const isSectionHeader = input.match(isGeniusSectionHeader) !== null;
 
-    input.split(/\s/g).forEach((word) => {
-        words.push(Word(word, isSectionHeader))
-    });
-    
+    if (isSectionHeader) {
+        words.push(Word(input, '', isSectionHeader));
+        
+    } else {
+        
+        let matchArr = [...input.matchAll(wordSplice)];
+        matchArr.map((matchSet) => {
+            words.push(Word(matchSet[1], matchSet[2], isSectionHeader));
+        });
+    }
+
     return {
         isSectionHeader: isSectionHeader,
         words: words
