@@ -26,7 +26,7 @@ const Home = () => {
             <h3>Copy the URL for a song from <a href="https://genius.com" target='_blank' rel="noreferrer">Genius.com</a></h3>
             <input 
             ref={inputRef}
-            placeholder='Paste the URL here: (i.e. https://genius.com/Lil-pump-gucci-gang-lyrics)' />
+            placeholder='Paste the URL here: (i.e. https://genius.com/The-champs-tequila-lyric)' />
             {showValidationError && <div className='validation-error-container'>That URL doesn't look right, please check it and try again</div>}
             <button onClick={onClickBegin}>Generate your quiz</button>
         </div>

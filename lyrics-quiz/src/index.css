@@ -271,6 +271,7 @@ button.close-modal-button:hover {
 
 .modal-container button.menu-button:hover {
   background-color: var(--primary-hover);
+  cursor: pointer;
 }
 
 .modal-container button.menu-button:disabled {
