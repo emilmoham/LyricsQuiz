@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactModal from 'react-modal';
 
 const StartModal = (props) => {
     const {
         gameData,
+        showModal,
         startGame
     } = props;
-
-    const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        setShowModal(gameData.startTimestamp === null);
-    }, [gameData.startTimestamp])
 
     return (
     <ReactModal 

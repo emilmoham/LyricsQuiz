@@ -1,12 +1,11 @@
 import { Line } from './Line';
 //import { mockData } from '../mockData';
-import { convertToLogicalWord, getCurrentScore } from './Helpers';
+import { convertToLogicalWord } from './Helpers';
 
 export function initializeGameData (response) {
     let title = 'Loading';
     let lyrics = [];
     let answerMap = new Map();
-    let maxScore = 0;
 
     const createSanitizeLyricsSet = (rawLyrics) => {
         let finalLineSet = [];
@@ -86,9 +85,10 @@ export function createGameDataCallbacks(setData) {
                     for (let i = 0; i < prevData.lyrics.length; i++) {
                         let line = prevData.lyrics[i];
                         if (!line.isSectionHeader) {
-                            line.words.map((word) => {
+                            for(let j = 0; j < line.words.length; j++){
+                                const word = line.words[j];
                                 newScore += newAnswerMap.get(word.logicalText);
-                            })
+                            }
                         }
                     }
 

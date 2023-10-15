@@ -13,7 +13,9 @@ export const Line = (input) => {
         
         let matchArr = [...input.matchAll(wordSplice)];
         matchArr.map((matchSet) => {
-            words.push(Word(matchSet[1], matchSet[2], isSectionHeader));
+            let newWord = Word(matchSet[1], matchSet[2], isSectionHeader);
+            words.push(newWord);
+            return newWord;
         });
     }
 

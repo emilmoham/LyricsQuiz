@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import { initializeGameData, createGameDataCallbacks } from '../models/GameData'
 
@@ -20,16 +20,18 @@ const Quiz = () => {
   const [gameData, setGameData] = useState(initializeGameData(null));
   const callbacks = createGameDataCallbacks(setGameData);
 
+  const [showStartScreen, setShowStartScren] = useState(true);
   const [showResults, setShowResults] = useState(false);
   
   const startGame = () => {
+    setShowStartScren(false);
     callbacks.startGame();
   }
 
-  const endGame = () => {
+  const endGame =  useCallback(() => {
     callbacks.endGame();
     setShowResults(true);
-  }
+  }, [callbacks, setShowResults])
 
   const onClickEndQuizButton = () => {
     if (gameData.isGameOver) {
@@ -47,7 +49,8 @@ const Quiz = () => {
     if(gameData.currentScore === gameData.maxPossibleScore && gameData.maxPossibleScore > 0) {
       endGame();
     }
-  }, [gameData.currentScore, gameData.maxPossibleScore])
+    // eslint-disable-next-line
+  }, [gameData.currentScore])
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`).then((response) => {
@@ -58,7 +61,7 @@ const Quiz = () => {
         return { ...prevData, title: "Error Generating Quiz"}
       })
     });
-  }, [])
+  }, [song])
   
   return (
     <div className='quiz-container'>
@@ -68,7 +71,7 @@ const Quiz = () => {
         <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
       </div>
       <Lyrics gameData={gameData} />
-      <StartModal gameData={gameData} startGame={startGame} />
+      <StartModal gameData={gameData} showModal={showStartScreen} startGame={startGame} />
       <EndModal gameData={gameData} showModal={showResults} onCloseModal={hideResults}/>
     </div>
   );
