@@ -76,7 +76,7 @@ jobs:
           script: |
             cd /home/emilmoham/LyricsQuiz/${GITHUB_SHA}
             pm2 delete LyricsQuiz
-            pm2 -n LyricsQuiz serve ./build 8012
+            pm2 -n LyricsQuiz serve ./build 8012 --spa
             pm2 save
 
   clean-up:
