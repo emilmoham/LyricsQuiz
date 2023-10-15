@@ -35,7 +35,6 @@ const EndModal = (props) => {
 
     const getCurrentUrl = () => {
         let url = window.location.href;
-        url = url.replace('https://','');
         return url;
     }
 
