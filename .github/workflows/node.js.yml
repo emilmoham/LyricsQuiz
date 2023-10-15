@@ -20,7 +20,7 @@ jobs:
       - run: |
           npm i
           npm run build
-          tar -czf "${GITHUB_SHA}".tar.gz .output
+          tar -czf "${GITHUB_SHA}".tar.gz build
       - name: Store app-artifacts for distribution
         uses: actions/upload-artifact@v3
         with:
@@ -74,8 +74,9 @@ jobs:
           port: "22"
           envs: GITHUB_SHA
           script: |
+            cd /home/emilmoham/LyricsQuiz/${GITHUB_SHA}
             pm2 delete LyricsQuiz
-            pm2 -n LyricsQuiz serve ./.output 8012
+            pm2 -n LyricsQuiz serve ./build 8012
             pm2 save
 
   clean-up:
