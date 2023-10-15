@@ -1,4 +1,4 @@
-import { isAlphaNumeric, isNotAlphaNumeric } from "../constants"
+import { isAlphaNumeric, isGeniusSectionHeader, isNotAlphaNumeric, isValidGeniusUrl, wordSplice } from "../constants"
 
 // isAlphaNumeric
 test.each([
@@ -29,9 +29,52 @@ test.each([
     ['-', true],
     [' ', true],
     ['\n',true],
-])('isAlphaNumeric', (input, expected) => {
+])('isNotAlphaNumeric', (input, expected) => {
     if (expected) 
         expect(input).toMatch(isNotAlphaNumeric);
     else
         expect(input).not.toMatch(isNotAlphaNumeric);
+});
+
+// isGeniusSectionHeader
+test.each([
+    ['[Chorus]', true],
+    ['[With Spaces]', true],
+    ['[Verse 1]', true],
+    ['{Chorus}', false],
+    ['{With Spaces}', false],
+    ['{Verse 1}', false],
+    ['Normal sentence with many words', false],
+    ['Sentence with (parentheticals) and words', false],
+    //['[Sentence] with many words', false]
+])('isGeniusSectionHeader', (input, expected) => {
+    if (expected)
+        expect(input).toMatch(isGeniusSectionHeader);
+    else
+        expect(input).not.toMatch(isGeniusSectionHeader);
+});
+
+// isValidGeniusUrl
+test.each([
+    ['https://genius.com/The-champs-tequila-lyric', true],
+    ['https://genius.com/', false],
+    ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', false]
+])('isValidGeniusUrl', (input, expected) => {
+    if (expected) 
+        expect(input).toMatch(isValidGeniusUrl);
+    else
+        expect(input).not.toMatch(isValidGeniusUrl);
+});
+
+// wordSplice
+test.each([
+    ['', 0],
+    ['A', 1],
+    ['Multiple words', 2],
+    ['Words with (parenthetical-hypenated-words) in the middle', 8],
+    ['1 Number', 2],
+    ['Sentence with a newline at the end\n', 7],
+])('wordSplice', (input, expectedMatchCount) => {
+    let matches = [...input.matchAll(wordSplice)];
+    expect(matches.length).toStrictEqual(expectedMatchCount);
 });
