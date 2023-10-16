@@ -10,12 +10,12 @@ const Home = () => {
 
     const onClickBegin = () => {
         const input = inputRef.current.value.trim();
-        const matches = isValidGeniusUrl.exec(input);
+        const matches = [...input.matchAll(isValidGeniusUrl)]
 
-        if (matches === null || matches.length !== 2)
+        if (matches === null || matches.length !== 1)
             setShowValidationError(true);
         else {
-            navigate(`/${matches[1]}`)
+            navigate(`/${matches[0][1]}`)
         }
     }
 
