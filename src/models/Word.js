@@ -1,4 +1,4 @@
-import { convertToLogicalWord } from './Helpers';
+import { convertToLogicalWord, removeDiacritics } from './Helpers';
 import { isAlphaNumeric } from "../constants";
 
 export const Word = (input, separationCharacter, isSectionHeader) => {
@@ -12,7 +12,7 @@ export const Word = (input, separationCharacter, isSectionHeader) => {
         hiddenText = input;
         logicalText = input;
     } else {
-        hiddenText = input.replace(isAlphaNumeric, '_');
+        hiddenText = removeDiacritics(input).replace(isAlphaNumeric, '_');
         logicalText = convertToLogicalWord(input);
     }
     

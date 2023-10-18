@@ -1,4 +1,15 @@
-import { convertToLogicalWord } from "../Helpers";
+import { convertToLogicalWord, removeDiacritics } from "../Helpers";
+
+test.each([
+    ['Word', 'Word'],
+    ['Emil\'s', 'Emil\'s'],
+    ['!@#$%^&*()[]{}', '!@#$%^&*()[]{}'],
+    ['1234', '1234'],
+    ['Mañana', 'Manana'],
+    ['Lingüístico', 'Linguistico'],
+])('removeDiacritics', (input, output) => {
+    expect (removeDiacritics(input)).toBe(output);
+})
 
 test.each([
     ['Word', 'word'],
