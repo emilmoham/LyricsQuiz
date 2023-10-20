@@ -1,25 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 
-import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './index.css';
 
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
 
-
+import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    index: true,
+    path: '/',
     element: <Home />
   },
   {
-    path: "/:song",
+    path: '/:song',
     element: <Quiz />
   }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,6 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { initializeGameData, createGameDataCallbacks } from '../models/GameData'
+import {
+  initializeGameData,
+  createGameDataCallbacks
+} from '../models/GameData';
 
 import QuizHeader from '../components/QuizHeader';
 import Lyrics from '../components/Lyrics';
@@ -11,10 +14,8 @@ import StartModal from '../components/StartModal';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const Quiz = () => {
-  const {
-    song
-  } = useParams();
+function Quiz () {
+  const { song } = useParams();
 
   // Game Data
   const [gameData, setGameData] = useState(initializeGameData(null));
@@ -22,16 +23,16 @@ const Quiz = () => {
 
   const [showStartScreen, setShowStartScren] = useState(true);
   const [showResults, setShowResults] = useState(false);
-  
+
   const startGame = () => {
     setShowStartScren(false);
     callbacks.startGame();
-  }
+  };
 
-  const endGame =  useCallback(() => {
+  const endGame = useCallback(() => {
     callbacks.endGame();
     setShowResults(true);
-  }, [callbacks, setShowResults])
+  }, [callbacks, setShowResults]);
 
   const onClickEndQuizButton = () => {
     if (gameData.isGameOver) {
@@ -39,40 +40,61 @@ const Quiz = () => {
     } else {
       endGame();
     }
-  }
+  };
 
   const hideResults = () => {
     setShowResults(false);
-  }
+  };
 
   useEffect(() => {
-    if(gameData.currentScore === gameData.maxPossibleScore && gameData.maxPossibleScore > 0) {
+    if (
+      gameData.currentScore === gameData.maxPossibleScore &&
+      gameData.maxPossibleScore > 0
+    ) {
       endGame();
     }
     // eslint-disable-next-line
-  }, [gameData.currentScore])
+  }, [gameData.currentScore]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`).then((response) => {
-      setGameData(initializeGameData(response));
-    }, (reason) => {
-      console.log(reason.message);
-      setGameData((prevData) => {
-        return { ...prevData, title: "Error Generating Quiz"}
-      })
-    });
-  }, [song])
-  
+    axios
+      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`)
+      .then(
+        (response) => {
+          setGameData(initializeGameData(response));
+        },
+        (reason) => {
+          console.log(reason.message);
+          setGameData((prevData) => {
+            return { ...prevData, title: 'Error Generating Quiz' };
+          });
+        }
+      );
+  }, [song]);
+
   return (
-    <div className='quiz-container'>
+    <div className="quiz-container">
       <QuizHeader gameData={gameData} onTimerExpire={endGame} />
-      <div className='user-input-container'>
-        <button className='end-quiz-button' onClick={onClickEndQuizButton}>{gameData.isGameOver ? 'Show Results' : 'Reveal Answers'}</button>
-        <AnswerInput gameData={gameData} onCheckAnswer={callbacks.checkAnswer} />
+      <div className="user-input-container">
+        <button className="end-quiz-button" onClick={onClickEndQuizButton}>
+          {gameData.isGameOver ? 'Show Results' : 'Reveal Answers'}
+        </button>
+        <AnswerInput
+          gameData={gameData}
+          onCheckAnswer={callbacks.checkAnswer}
+        />
       </div>
       <Lyrics gameData={gameData} />
-      <StartModal gameData={gameData} showModal={showStartScreen} startGame={startGame} />
-      <EndModal gameData={gameData} showModal={showResults} onCloseModal={hideResults}/>
+      <StartModal
+        gameData={gameData}
+        showModal={showStartScreen}
+        startGame={startGame}
+      />
+      <EndModal
+        gameData={gameData}
+        showModal={showResults}
+        onCloseModal={hideResults}
+      />
     </div>
   );
 }

@@ -3,6 +3,6 @@ export const isNotAlphaNumeric = /[^a-z0-9]/gi;
 
 export const isGeniusSectionHeader = /\[.+\]/g;
 
-export const isValidGeniusUrl = /https:\/\/genius.com\/([\w-]+)/gi
+export const isValidGeniusUrl = /https:\/\/genius.com\/([\w-]+)/gi;
 
-export const wordSplice = /([^\s-]+)([\s-])?/gi
+export const wordSplice = /([^\s-]+)([\s-])?/gi;

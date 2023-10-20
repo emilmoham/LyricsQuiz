@@ -1,26 +1,24 @@
-import { isGeniusSectionHeader, wordSplice } from "../constants";
-import { Word } from "./Word";
+import { isGeniusSectionHeader, wordSplice } from '../constants';
+import { Word } from './Word';
 
-export function Line(input) {
-    const words = [];
-    
-    const isSectionHeader = input.match(isGeniusSectionHeader) !== null;
+export function Line (input) {
+  const words = [];
 
-    if (isSectionHeader) {
-        words.push(Word(input, '', isSectionHeader));
-        
-    } else {
-        
-        let matchArr = [...input.matchAll(wordSplice)];
-        matchArr.map((matchSet) => {
-            let newWord = Word(matchSet[1], matchSet[2], isSectionHeader);
-            words.push(newWord);
-            return newWord;
-        });
-    }
+  const isSectionHeader = input.match(isGeniusSectionHeader) !== null;
 
-    return {
-        isSectionHeader: isSectionHeader,
-        words: words
-    }
+  if (isSectionHeader) {
+    words.push(Word(input, '', isSectionHeader));
+  } else {
+    const matchArr = [...input.matchAll(wordSplice)];
+    matchArr.map((matchSet) => {
+      const newWord = Word(matchSet[1], matchSet[2], isSectionHeader);
+      words.push(newWord);
+      return newWord;
+    });
+  }
+
+  return {
+    isSectionHeader,
+    words
+  };
 }

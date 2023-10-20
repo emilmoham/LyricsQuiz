@@ -2,7 +2,7 @@ name: Automated Release Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 env:
   NODE_VERSION: 16.17.0
@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: |
           npm i
           npm run build
@@ -26,7 +26,7 @@ jobs:
         with:
           name: app-artifacts
           path: ${{ github.sha }}.tar.gz
-    
+
   prepare-release-on-servers:
     needs: create-deployment-artifacts
     name: "Prepare release on INT server"
@@ -49,15 +49,15 @@ jobs:
         env:
           GITHUB_SHA: ${{ github.sha }}
         with:
-            host: ${{ secrets.SSH_HOST }}
-            username: "${{ secrets.SSH_USERNAME }}"
-            key: ${{ secrets.SSH_KEY }}
-            port: "22"
-            envs: GITHUB_SHA
-            script: |
-              mkdir -p "/home/emilmoham/LyricsQuiz/${GITHUB_SHA}"
-              tar xzf /home/emilmoham/artifacts/${GITHUB_SHA}.tar.gz -C "/home/emilmoham/LyricsQuiz/${GITHUB_SHA}"
-              rm -rf /home/emilmoham/artifacts/${GITHUB_SHA}.tar.gz
+          host: ${{ secrets.SSH_HOST }}
+          username: "${{ secrets.SSH_USERNAME }}"
+          key: ${{ secrets.SSH_KEY }}
+          port: "22"
+          envs: GITHUB_SHA
+          script: |
+            mkdir -p "/home/emilmoham/LyricsQuiz/${GITHUB_SHA}"
+            tar xzf /home/emilmoham/artifacts/${GITHUB_SHA}.tar.gz -C "/home/emilmoham/LyricsQuiz/${GITHUB_SHA}"
+            rm -rf /home/emilmoham/artifacts/${GITHUB_SHA}.tar.gz
   activate-release:
     name: "Activate release"
     runs-on: ubuntu-latest
