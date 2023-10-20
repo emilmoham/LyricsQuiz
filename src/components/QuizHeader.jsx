@@ -11,14 +11,10 @@ const QuizHeader = (props) => {
   };
 
   return (
-    <div className="quiz-header">
-      <Timer
-        expiryTimestamp={setTimer()}
-        onEnd={onTimerExpire}
-        gameRunning={gameData.gameRunning}
-      />
-      <h1 className="song-title">{gameData.title}</h1>
-      <h3 className="header-side-content score">
+    <div className='quiz-header'>
+      <Timer expiryTimestamp={setTimer()} onEnd={onTimerExpire} gameRunning={gameData.gameRunning} />
+      <h1 className='song-title'>{gameData.title}</h1>
+      <h3 className='header-side-content score'>
         {gameData.currentScore}/{gameData.maxPossibleScore}
       </h3>
     </div>

@@ -10,7 +10,7 @@ const LineContainer = (props) => {
 
     if (isGameOver) {
       return (
-        <span key={key} className="missed-word">
+        <span key={key} className='missed-word'>
           {word.revealedText + word.separator}
         </span>
       );
@@ -20,7 +20,7 @@ const LineContainer = (props) => {
   };
 
   return (
-    <div className="line">
+    <div className='line'>
       <p>{line.words.map((word, key) => renderWord(word, key))}</p>
     </div>
   );

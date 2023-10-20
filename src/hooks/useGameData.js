@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Line } from '../models/Line';
 import axios from 'axios';
 
-function useGameData () {
+function useGameData() {
   const [title, setTitle] = useState('Loading...123');
   const [lyrics, setLyrics] = useState([]);
   const [answerMap, setAnswerMap] = useState(new Map());
@@ -19,11 +19,11 @@ function useGameData () {
   // eslint-disable-next-line no-unused-vars
   const [allowedGameSeconds, setAllowedGameSeconds] = useState(480);
 
-  function parseLyrics (rawLyrics) {
+  function parseLyrics(rawLyrics) {
     return rawLyrics.split(/\n/g).map((rawLine) => Line(rawLine)); // TODO remove blank lines
   }
 
-  function initializeAnswerMap (lyricsSet) {
+  function initializeAnswerMap(lyricsSet) {
     const myMap = new Map();
 
     lyricsSet.map((line) => {
@@ -39,44 +39,42 @@ function useGameData () {
     return myMap;
   }
 
-  function startQuiz () {
+  function startQuiz() {
     setIsGameRunning(true);
     setStartTimestamp(new Date());
   }
 
-  function endQuiz () {
+  function endQuiz() {
     setIsGameRunning(false);
     setEndTimestamp(new Date());
   }
 
-  function checkAnswer () {
+  function checkAnswer() {
     return true; // TODO
   }
 
-  function loadSong (song) {
+  function loadSong(song) {
     console.log(song);
     if (song === undefined || song === null) return;
-    axios
-      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`)
-      .then(
-        (response) => {
-          setTitle(response.data.title);
+    axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`).then(
+      (response) => {
+        setTitle(response.data.title);
 
-          const lyricsSet = parseLyrics(response.data.lyrics);
-          const initialAnswerMap = initializeAnswerMap(lyricsSet);
+        const lyricsSet = parseLyrics(response.data.lyrics);
+        const initialAnswerMap = initializeAnswerMap(lyricsSet);
 
-          setLyrics(lyricsSet);
-          setAnswerMap(initialAnswerMap);
-          setMaxPossibleScore(answerMap.size);
-        },
-        (reason) => {
-          setTitle('Error');
-          // setLyrics(parseLyrics(response.data.lyrics));
+        setLyrics(lyricsSet);
+        setAnswerMap(initialAnswerMap);
+        setMaxPossibleScore(answerMap.size);
+      },
+      (reason) => {
+        setTitle('Error');
+        // setLyrics(parseLyrics(response.data.lyrics));
 
-          // TODO Log Error properly
-          console.log(reason.message);
-        }
-      );
+        // TODO Log Error properly
+        console.log(reason.message);
+      }
+    );
   }
 
   return {

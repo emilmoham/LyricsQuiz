@@ -2,7 +2,7 @@ import { Line } from './Line';
 // import { mockData } from '../mockData';
 import { convertToLogicalWord } from './Helpers';
 
-export function initializeGameData (response) {
+export function initializeGameData(response) {
   let title = 'Loading';
   let lyrics = [];
   let answerMap = new Map();
@@ -66,7 +66,7 @@ export function initializeGameData (response) {
   };
 }
 
-export function createGameDataCallbacks (setData) {
+export function createGameDataCallbacks(setData) {
   return {
     checkAnswer: (key) => {
       const logicalWord = convertToLogicalWord(key);

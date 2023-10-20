@@ -13,18 +13,13 @@ const Lyrics = (props) => {
   };
 
   return (
-    <div className="lyrics-container">
+    <div className='lyrics-container'>
       {gameData.lyrics.map((line, index) => {
         if (line.isSectionHeader) {
           return <h4 key={index}>{renderSectionHeader(line.words)}</h4>;
         }
         return (
-          <LineContainer
-            key={index}
-            line={line}
-            revealedWords={gameData.answerMap}
-            isGameOver={gameData.isGameOver}
-          />
+          <LineContainer key={index} line={line} revealedWords={gameData.answerMap} isGameOver={gameData.isGameOver} />
         );
       })}
     </div>

@@ -23,7 +23,7 @@ const Timer = (props) => {
   }, [gameRunning, start, pause]);
 
   return (
-    <h3 className="header-side-content timer">
+    <h3 className='header-side-content timer'>
       {minutes}:{seconds.toString().padStart(2, '0')}
     </h3>
   );

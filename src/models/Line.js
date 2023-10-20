@@ -1,7 +1,7 @@
 import { isGeniusSectionHeader, wordSplice } from '../constants';
 import { Word } from './Word';
 
-export function Line (input) {
+export function Line(input) {
   const words = [];
 
   const isSectionHeader = input.match(isGeniusSectionHeader) !== null;

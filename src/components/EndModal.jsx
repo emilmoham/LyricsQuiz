@@ -10,9 +10,7 @@ const EndModal = (props) => {
   const calculateTotalGameTime = () => {
     let totalGameSeconds = 0;
     if (gameData.startTimestamp !== null && gameData.endTimestamp !== null) {
-      totalGameSeconds = Math.floor(
-        (gameData.endTimestamp - gameData.startTimestamp) / 1000
-      );
+      totalGameSeconds = Math.floor((gameData.endTimestamp - gameData.startTimestamp) / 1000);
     }
     const seconds = totalGameSeconds % 60;
     const minutes = Math.floor(totalGameSeconds / 60);
@@ -25,9 +23,7 @@ const EndModal = (props) => {
 
   const getTimeString = () => {
     const elapsedTime = calculateTotalGameTime();
-    return `${elapsedTime.minutes}:${elapsedTime.seconds
-      .toString()
-      .padStart(2, '0')}`;
+    return `${elapsedTime.minutes}:${elapsedTime.seconds.toString().padStart(2, '0')}`;
   };
 
   const renderElapsedGameTime = () => {
@@ -56,19 +52,12 @@ const EndModal = (props) => {
   const onClickShare = (e) => {
     e.preventDefault();
     navigator.clipboard.writeText(
-      `🎶 ${
-        gameData.title
-      } - ${getScoreString()} in ${getTimeString()} 🎶\n${getCurrentUrl()}`
+      `🎶 ${gameData.title} - ${getScoreString()} in ${getTimeString()} 🎶\n${getCurrentUrl()}`
     );
   };
 
   return (
-    <ReactModal
-      isOpen={showModal}
-      ariaHideApp={false}
-      overlayClassName={'modal-overlay'}
-      className={'modal-container'}
-    >
+    <ReactModal isOpen={showModal} ariaHideApp={false} overlayClassName={'modal-overlay'} className={'modal-container'}>
       <button className={'close-modal-button'} onClick={onCloseModal}>
         X
       </button>
@@ -76,15 +65,15 @@ const EndModal = (props) => {
       <h3>{getScoreString()}</h3>
       <div>in</div>
       {renderElapsedGameTime()}
-      <div className="spacer"></div>
-      <button className="menu-button share-button" onClick={onClickShare}>
+      <div className='spacer'></div>
+      <button className='menu-button share-button' onClick={onClickShare}>
         Copy Results
       </button>
-      <div className="end-navigation">
-        <button className="menu-button end-control" onClick={onClickNewSong}>
+      <div className='end-navigation'>
+        <button className='menu-button end-control' onClick={onClickNewSong}>
           New Song
         </button>
-        <button className="menu-button end-control" onClick={onClickRetry}>
+        <button className='menu-button end-control' onClick={onClickRetry}>
           Retry
         </button>
       </div>

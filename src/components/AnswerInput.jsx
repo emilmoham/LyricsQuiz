@@ -18,10 +18,10 @@ const AnswerInput = (props) => {
   return (
     <input
       autoFocus
-      className="answer-input"
+      className='answer-input'
       disabled={gameData.isGameOver}
-      placeholder="Enter Lyrics Here"
-      type="text"
+      placeholder='Enter Lyrics Here'
+      type='text'
       value={inputValue}
       onChange={(e) => checkAnswer(e.target.value)}
     />

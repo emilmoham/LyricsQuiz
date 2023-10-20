@@ -3,14 +3,8 @@ import { Line } from '../Line';
 // Normal lyrics
 test.each([
   ['A regular line of lyrics', { expectedWords: 5, isSectionHeader: false }],
-  [
-    'A line with-hyphenated-words',
-    { expectedWords: 5, isSectionHeader: false }
-  ],
-  [
-    'A line with (words inside parenthesis)',
-    { expectedWords: 6, isSectionHeader: false }
-  ],
+  ['A line with-hyphenated-words', { expectedWords: 5, isSectionHeader: false }],
+  ['A line with (words inside parenthesis)', { expectedWords: 6, isSectionHeader: false }],
   ['[Verse 1]', { expectedWords: 1, isSectionHeader: true }]
 ])('Line_Normal_Lyrics', (input, output) => {
   const line = Line(input);
