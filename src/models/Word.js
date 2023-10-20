@@ -1,7 +1,7 @@
 import { convertToLogicalWord, removeDiacritics } from './Helpers';
 import { isAlphaNumeric } from "../constants";
 
-export const Word = (input, separationCharacter, isSectionHeader) => {
+export function Word(input, separationCharacter, isSectionHeader) {
     const revealedText = input;
 
     let separator = separationCharacter === undefined ? '' : separationCharacter;
