@@ -62,7 +62,9 @@ function Quiz() {
       />
 
       <div className='user-input-container'>
-        <button className='end-quiz-button' onClick={onClickEndQuizButton}>{gameData.endTimeStamp !== null ? 'Show Results' : 'Reveal Answers'}</button>
+        <button className='end-quiz-button' onClick={onClickEndQuizButton}>
+          {gameData.endTimeStamp !== null ? 'Show Results' : 'Reveal Answers'}
+        </button>
         <AnswerInput
           isGameRunning={gameData.isGameRunning}
           checkAnswer={gameData.checkAnswer}
