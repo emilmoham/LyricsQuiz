@@ -66,7 +66,9 @@ function useGameData() {
   }
 
   function resetQuiz() {
-    if (rawData === null) { return; }
+    if (rawData === null) {
+      return;
+    }
 
     setTitle(rawData.title);
 
