@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LineContainer from './LineContainer';
 
 const Lyrics = (props) => {
-  const { gameData } = props;
+  const { lyrics, answerMap, gameEndTimestamp } = props;
 
   const renderSectionHeader = (words) => {
     let output = '';
@@ -14,16 +15,22 @@ const Lyrics = (props) => {
 
   return (
     <div className='lyrics-container'>
-      {gameData.lyrics.map((line, index) => {
+      {lyrics.map((line, index) => {
         if (line.isSectionHeader) {
           return <h4 key={index}>{renderSectionHeader(line.words)}</h4>;
         }
         return (
-          <LineContainer key={index} line={line} revealedWords={gameData.answerMap} isGameOver={gameData.isGameOver} />
+          <LineContainer key={index} line={line} revealedWords={answerMap} isGameOver={gameEndTimestamp !== null} />
         );
       })}
     </div>
   );
+};
+
+Lyrics.propTypes = {
+  lyrics: PropTypes.array,
+  answerMap: PropTypes.objectOf(Map),
+  gameEndTimestamp: PropTypes.objectOf(Date)
 };
 
 export default Lyrics;

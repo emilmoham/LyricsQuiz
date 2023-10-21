@@ -1,16 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 
 const EndModal = (props) => {
-  const { gameData, showModal, onCloseModal } = props;
+  const {
+    showModal,
+    onCloseModal,
+    startTimestamp,
+    endTimestamp,
+    currentScore,
+    maxPossibleScore,
+    title
+  } = props;
 
   const navigate = useNavigate();
 
   const calculateTotalGameTime = () => {
     let totalGameSeconds = 0;
-    if (gameData.startTimestamp !== null && gameData.endTimestamp !== null) {
-      totalGameSeconds = Math.floor((gameData.endTimestamp - gameData.startTimestamp) / 1000);
+    if (startTimestamp !== null && endTimestamp !== null) {
+      totalGameSeconds = Math.floor((endTimestamp - startTimestamp) / 1000);
     }
     const seconds = totalGameSeconds % 60;
     const minutes = Math.floor(totalGameSeconds / 60);
@@ -31,7 +40,7 @@ const EndModal = (props) => {
   };
 
   const getScoreString = () => {
-    return `${gameData.currentScore}/${gameData.maxPossibleScore}`;
+    return `${currentScore}/${maxPossibleScore}`;
   };
 
   const getCurrentUrl = () => {
@@ -52,7 +61,7 @@ const EndModal = (props) => {
   const onClickShare = (e) => {
     e.preventDefault();
     navigator.clipboard.writeText(
-      `🎶 ${gameData.title} - ${getScoreString()} in ${getTimeString()} 🎶\n${getCurrentUrl()}`
+      `🎶 ${title} - ${getScoreString()} in ${getTimeString()} 🎶\n${getCurrentUrl()}`
     );
   };
 
@@ -79,6 +88,16 @@ const EndModal = (props) => {
       </div>
     </ReactModal>
   );
+};
+
+EndModal.propTypes = {
+  showModal: PropTypes.bool,
+  onCloseModal: PropTypes.func,
+  startTimestamp: PropTypes.objectOf(Date),
+  endTimestamp: PropTypes.objectOf(Date),
+  currentScore: PropTypes.number,
+  maxPossibleScore: PropTypes.number,
+  title: PropTypes.string
 };
 
 export default EndModal;

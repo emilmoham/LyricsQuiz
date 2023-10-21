@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
-import { convertToLogicalWord } from '../models/Helpers';
+import PropTypes from 'prop-types';
 
 const AnswerInput = (props) => {
-  const { gameData, onCheckAnswer } = props;
+  const { isGameRunning, checkAnswer } = props;
 
   const [inputValue, setInputValue] = useState('');
 
-  const checkAnswer = (input) => {
+  const onInputChange = (input) => {
     setInputValue(input);
-    const sanitizedInput = convertToLogicalWord(input);
-    if (gameData.answerMap.get(sanitizedInput) === false) {
-      onCheckAnswer(sanitizedInput);
-      setInputValue('');
-    }
+    if (checkAnswer(input)) { setInputValue(''); }
   };
 
   return (
     <input
       autoFocus
       className='answer-input'
-      disabled={gameData.isGameOver}
+      disabled={!isGameRunning}
       placeholder='Enter Lyrics Here'
       type='text'
       value={inputValue}
-      onChange={(e) => checkAnswer(e.target.value)}
+      onChange={(e) => onInputChange(e.target.value)}
     />
   );
+};
+
+AnswerInput.propTypes = {
+  isGameRunning: PropTypes.bool,
+  checkAnswer: PropTypes.func
 };
 
 export default AnswerInput;

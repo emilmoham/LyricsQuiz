@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Line } from '../models/Line';
 import axios from 'axios';
+import { convertToLogicalWord } from '../models/Helpers';
 
 function useGameData() {
   const [title, setTitle] = useState('Loading...123');
@@ -49,8 +50,18 @@ function useGameData() {
     setEndTimestamp(new Date());
   }
 
-  function checkAnswer() {
-    return true; // TODO
+  function checkAnswer(input) {
+    const logicalWord = convertToLogicalWord(input);
+    if (answerMap.get(logicalWord) === false) {
+      setAnswerMap((previousData) => {
+        const newAnswerMap = new Map(previousData);
+        newAnswerMap.set(logicalWord, true);
+        return newAnswerMap;
+      });
+      setCurrentScore(currentScore + 1);
+      return true;
+    }
+    return false;
   }
 
   function loadSong(song) {
@@ -65,7 +76,7 @@ function useGameData() {
 
         setLyrics(lyricsSet);
         setAnswerMap(initialAnswerMap);
-        setMaxPossibleScore(answerMap.size);
+        setMaxPossibleScore(initialAnswerMap.size);
       },
       (reason) => {
         setTitle('Error');

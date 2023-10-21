@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
+import PropTypes from 'prop-types';
 
 const Timer = (props) => {
   const { expiryTimestamp, onEnd, gameRunning } = props;
@@ -27,6 +28,12 @@ const Timer = (props) => {
       {minutes}:{seconds.toString().padStart(2, '0')}
     </h3>
   );
+};
+
+Timer.propTypes = {
+  expiryTimestamp: PropTypes.object,
+  onEnd: PropTypes.func,
+  gameRunning: PropTypes.bool
 };
 
 export default Timer;

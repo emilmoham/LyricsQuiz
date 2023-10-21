@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LineContainer = (props) => {
   const { line, revealedWords, isGameOver } = props;
@@ -24,6 +25,12 @@ const LineContainer = (props) => {
       <p>{line.words.map((word, key) => renderWord(word, key))}</p>
     </div>
   );
+};
+
+LineContainer.propTypes = {
+  line: PropTypes.arrayOf(PropTypes.object),
+  revealedWords: PropTypes.objectOf(Map),
+  isGameOver: PropTypes.bool
 };
 
 export default LineContainer;
