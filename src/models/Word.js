@@ -4,7 +4,8 @@ import { isAlphaNumeric } from '../constants';
 export function Word(input, separationCharacter, isSectionHeader) {
   const revealedText = input;
 
-  const separator = separationCharacter === undefined ? '' : separationCharacter;
+  const separator =
+    separationCharacter === undefined ? '' : separationCharacter;
   let hiddenText = '';
   let logicalText = '';
 

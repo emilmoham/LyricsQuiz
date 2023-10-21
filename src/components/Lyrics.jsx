@@ -20,7 +20,12 @@ const Lyrics = (props) => {
           return <h4 key={index}>{renderSectionHeader(line.words)}</h4>;
         }
         return (
-          <LineContainer key={index} line={line} revealedWords={answerMap} isGameOver={gameEndTimestamp !== null} />
+          <LineContainer
+            key={index}
+            line={line}
+            revealedWords={answerMap}
+            isGameOver={gameEndTimestamp !== null}
+          />
         );
       })}
     </div>

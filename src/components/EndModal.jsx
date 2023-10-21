@@ -32,7 +32,9 @@ const EndModal = (props) => {
 
   const getTimeString = () => {
     const elapsedTime = calculateTotalGameTime();
-    return `${elapsedTime.minutes}:${elapsedTime.seconds.toString().padStart(2, '0')}`;
+    return `${elapsedTime.minutes}:${elapsedTime.seconds
+      .toString()
+      .padStart(2, '0')}`;
   };
 
   const renderElapsedGameTime = () => {
@@ -66,7 +68,12 @@ const EndModal = (props) => {
   };
 
   return (
-    <ReactModal isOpen={showModal} ariaHideApp={false} overlayClassName={'modal-overlay'} className={'modal-container'}>
+    <ReactModal
+      isOpen={showModal}
+      ariaHideApp={false}
+      overlayClassName={'modal-overlay'}
+      className={'modal-container'}
+    >
       <button className={'close-modal-button'} onClick={onCloseModal}>
         X
       </button>

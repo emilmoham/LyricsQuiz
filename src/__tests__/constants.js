@@ -1,4 +1,10 @@
-import { isAlphaNumeric, isGeniusSectionHeader, isNotAlphaNumeric, isValidGeniusUrl, wordSplice } from '../constants';
+import {
+  isAlphaNumeric,
+  isGeniusSectionHeader,
+  isNotAlphaNumeric,
+  isValidGeniusUrl,
+  wordSplice
+} from '../constants';
 
 // isAlphaNumeric
 test.each([

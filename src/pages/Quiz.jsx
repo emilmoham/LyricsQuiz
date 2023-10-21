@@ -21,13 +21,30 @@ function Quiz() {
     gameData.loadSong(song);
   }, [song]);
 
-  // function onClickEndQuizButton() {
-  //   // if (gameData.isGameOver) {
-  //   //   setShowResults(true);
-  //   // } else {
-  //   //   endGame();
-  //   // }
-  // }
+  // Watch for game end
+  useEffect(() => {
+    if (gameData.maxPossibleScore > 0) {
+      if (gameData.currentScore === gameData.maxPossibleScore) {
+        gameData.endQuiz();
+      }
+    }
+  }, [gameData.currentScore, gameData.maxPossibleScore]);
+
+  // Show the end modal when the game ends.
+  useEffect(() => {
+    if (gameData.endTimeStamp !== null) {
+      setShowResults(true);
+    }
+  }, [gameData.endTimeStamp]);
+
+  function onClickEndQuizButton(e) {
+    e.preventDefault();
+    if (gameData.isGameOver) {
+      setShowResults(true);
+    } else {
+      gameData.endQuiz();
+    }
+  }
 
   function hideResults() {
     setShowResults(false);
@@ -35,20 +52,43 @@ function Quiz() {
 
   return (
     <div className='quiz-container'>
-      <QuizHeader title={gameData.title}
-          allowedGameSeconds={gameData.allowedGameSeconds}
-          currentScore={gameData.currentScore}
-          maxPossibleScore={gameData.maxPossibleScore}
-          isRunning={gameData.isGameRunning}
-          onTimerExpire={gameData.endQuiz} />
+      <QuizHeader
+        title={gameData.title}
+        allowedGameSeconds={gameData.allowedGameSeconds}
+        currentScore={gameData.currentScore}
+        maxPossibleScore={gameData.maxPossibleScore}
+        isGameRunning={gameData.isGameRunning}
+        onTimerExpire={gameData.endQuiz}
+      />
 
-      <AnswerInput isGameRunning={gameData.isGameRunning} checkAnswer={gameData.checkAnswer}/>
+      <div className='user-input-container'>
+        <button className='end-quiz-button' onClick={onClickEndQuizButton}>{gameData.endTimeStamp !== null ? 'Show Results' : 'Reveal Answers'}</button>
+        <AnswerInput
+          isGameRunning={gameData.isGameRunning}
+          checkAnswer={gameData.checkAnswer}
+        />
+      </div>
 
-      <Lyrics lyrics={gameData.lyrics} answerMap={gameData.answerMap} gameEndTimestamp={gameData.endTimeStamp} />
+      <Lyrics
+        lyrics={gameData.lyrics}
+        answerMap={gameData.answerMap}
+        gameEndTimestamp={gameData.endTimeStamp}
+      />
 
-      <StartModal showModal={gameData.startTimeStamp === null} isQuizLoaded={gameData.lyrics.length !== 0} startGame={gameData.startQuiz} />
+      <StartModal
+        showModal={gameData.startTimeStamp === null}
+        isQuizLoaded={gameData.lyrics.length !== 0}
+        startGame={gameData.startQuiz}
+      />
 
-      <EndModal showModal={showResults} onCloseModal={hideResults} startTimestamp={gameData.startTimeStamp} endTimestamp={gameData.endTimeStamp} currentScore={gameData.currentScore} maxPossibleScore={gameData.maxPossibleScore} />
+      <EndModal
+        showModal={showResults}
+        onCloseModal={hideResults}
+        startTimestamp={gameData.startTimeStamp}
+        endTimestamp={gameData.endTimeStamp}
+        currentScore={gameData.currentScore}
+        maxPossibleScore={gameData.maxPossibleScore}
+      />
     </div>
   );
 }

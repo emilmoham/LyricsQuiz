@@ -65,27 +65,28 @@ function useGameData() {
   }
 
   function loadSong(song) {
-    console.log(song);
     if (song === undefined || song === null) return;
-    axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`).then(
-      (response) => {
-        setTitle(response.data.title);
+    axios
+      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`)
+      .then(
+        (response) => {
+          setTitle(response.data.title);
 
-        const lyricsSet = parseLyrics(response.data.lyrics);
-        const initialAnswerMap = initializeAnswerMap(lyricsSet);
+          const lyricsSet = parseLyrics(response.data.lyrics);
+          const initialAnswerMap = initializeAnswerMap(lyricsSet);
 
-        setLyrics(lyricsSet);
-        setAnswerMap(initialAnswerMap);
-        setMaxPossibleScore(initialAnswerMap.size);
-      },
-      (reason) => {
-        setTitle('Error');
-        // setLyrics(parseLyrics(response.data.lyrics));
+          setLyrics(lyricsSet);
+          setAnswerMap(initialAnswerMap);
+          setMaxPossibleScore(initialAnswerMap.size);
+        },
+        (reason) => {
+          setTitle('Error');
+          // setLyrics(parseLyrics(response.data.lyrics));
 
-        // TODO Log Error properly
-        console.log(reason.message);
-      }
-    );
+          // TODO Log Error properly
+          console.log(reason.message);
+        }
+      );
   }
 
   return {

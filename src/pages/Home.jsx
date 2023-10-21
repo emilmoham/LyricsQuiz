@@ -28,7 +28,10 @@ function Home() {
             Genius.com
           </a>
         </h3>
-        <input ref={inputRef} placeholder='Paste the URL here: (i.e. https://genius.com/The-champs-tequila-lyric)' />
+        <input
+          ref={inputRef}
+          placeholder='Paste the URL here: (i.e. https://genius.com/The-champs-tequila-lyric)'
+        />
         {showValidationError && (
           <div className='validation-error-container'>
             That URL doesn&apost look right, please check it and try again

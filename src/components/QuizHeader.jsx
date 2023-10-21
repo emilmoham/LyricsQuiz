@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import Timer from './Timer';
 
 const QuizHeader = (props) => {
-  const { title, allowedGameSeconds, currentScore, maxPossibleScore, isRunning, onTimerExpire } = props;
+  const {
+    title,
+    allowedGameSeconds,
+    currentScore,
+    maxPossibleScore,
+    isGameRunning,
+    onTimerExpire
+  } = props;
 
   const setTimer = () => {
     const d = new Date();
@@ -13,7 +20,11 @@ const QuizHeader = (props) => {
 
   return (
     <div className='quiz-header'>
-      <Timer expiryTimestamp={setTimer()} onEnd={onTimerExpire} gameRunning={isRunning} />
+      <Timer
+        expiryTimestamp={setTimer()}
+        onEnd={onTimerExpire}
+        isGameRunning={isGameRunning}
+      />
       <h1 className='song-title'>{title}</h1>
       <h3 className='header-side-content score'>
         {currentScore}/{maxPossibleScore}
@@ -27,7 +38,7 @@ QuizHeader.propTypes = {
   allowedGameSeconds: PropTypes.number,
   currentScore: PropTypes.number,
   maxPossibleScore: PropTypes.number,
-  isRunning: PropTypes.bool,
+  isGameRunning: PropTypes.bool,
   onTimerExpire: PropTypes.func
 };
 

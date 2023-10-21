@@ -3,7 +3,7 @@ import { useTimer } from 'react-timer-hook';
 import PropTypes from 'prop-types';
 
 const Timer = (props) => {
-  const { expiryTimestamp, onEnd, gameRunning } = props;
+  const { expiryTimestamp, onEnd, isGameRunning } = props;
 
   const {
     // totalSeconds,
@@ -19,9 +19,9 @@ const Timer = (props) => {
   } = useTimer({ autoStart: false, expiryTimestamp, onExpire: () => onEnd() });
 
   useEffect(() => {
-    if (gameRunning) start();
+    if (isGameRunning) start();
     else pause();
-  }, [gameRunning, start, pause]);
+  }, [isGameRunning, start, pause]);
 
   return (
     <h3 className='header-side-content timer'>
@@ -33,7 +33,7 @@ const Timer = (props) => {
 Timer.propTypes = {
   expiryTimestamp: PropTypes.object,
   onEnd: PropTypes.func,
-  gameRunning: PropTypes.bool
+  isGameRunning: PropTypes.bool
 };
 
 export default Timer;

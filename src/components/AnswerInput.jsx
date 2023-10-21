@@ -8,7 +8,9 @@ const AnswerInput = (props) => {
 
   const onInputChange = (input) => {
     setInputValue(input);
-    if (checkAnswer(input)) { setInputValue(''); }
+    if (checkAnswer(input)) {
+      setInputValue('');
+    }
   };
 
   return (
