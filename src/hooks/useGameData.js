@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Line } from '../models/Line';
 import axios from 'axios';
 import { convertToLogicalWord } from '../models/Helpers';
 
 function useGameData() {
+  const [rawData, setRawData] = useState(null);
   const [title, setTitle] = useState('Loading...123');
   const [lyrics, setLyrics] = useState([]);
   const [answerMap, setAnswerMap] = useState(new Map());
@@ -64,30 +65,45 @@ function useGameData() {
     return false;
   }
 
+  function resetQuiz() {
+    if (rawData === null) { return; }
+
+    setTitle(rawData.title);
+
+    const lyricsSet = parseLyrics(rawData.lyrics);
+    const initialAnswerMap = initializeAnswerMap(lyricsSet);
+
+    setLyrics(lyricsSet);
+    setAnswerMap(initialAnswerMap);
+
+    setCurrentScore(0);
+    setMaxPossibleScore(initialAnswerMap.size);
+
+    setIsGameRunning(false);
+
+    setStartTimestamp(null);
+    setEndTimestamp(null);
+  }
+
   function loadSong(song) {
     if (song === undefined || song === null) return;
     axios
       .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`)
       .then(
         (response) => {
-          setTitle(response.data.title);
-
-          const lyricsSet = parseLyrics(response.data.lyrics);
-          const initialAnswerMap = initializeAnswerMap(lyricsSet);
-
-          setLyrics(lyricsSet);
-          setAnswerMap(initialAnswerMap);
-          setMaxPossibleScore(initialAnswerMap.size);
+          setRawData(response.data);
         },
         (reason) => {
           setTitle('Error');
-          // setLyrics(parseLyrics(response.data.lyrics));
-
           // TODO Log Error properly
           console.log(reason.message);
         }
       );
   }
+
+  useEffect(() => {
+    resetQuiz();
+  }, [rawData]);
 
   return {
     title,
@@ -102,7 +118,8 @@ function useGameData() {
     startQuiz,
     endQuiz,
     checkAnswer,
-    loadSong
+    loadSong,
+    resetQuiz
   };
 }
 

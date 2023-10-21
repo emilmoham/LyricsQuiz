@@ -14,6 +14,7 @@ function Quiz() {
   // Game Data
   const gameData = useGameData();
 
+  const [showStart, setShowStart] = useState(true);
   const [showResults, setShowResults] = useState(false);
 
   // Load quiz data
@@ -50,6 +51,18 @@ function Quiz() {
     setShowResults(false);
   }
 
+  function start() {
+    setShowStart(false);
+    gameData.startQuiz();
+  }
+
+  function reset() {
+    console.log('resetting');
+    setShowResults(false);
+    setShowStart(true);
+    gameData.resetQuiz();
+  }
+
   return (
     <div className='quiz-container'>
       <QuizHeader
@@ -78,9 +91,9 @@ function Quiz() {
       />
 
       <StartModal
-        showModal={gameData.startTimeStamp === null}
+        showModal={showStart}
         isQuizLoaded={gameData.lyrics.length !== 0}
-        startGame={gameData.startQuiz}
+        startGame={start}
       />
 
       <EndModal
@@ -90,6 +103,7 @@ function Quiz() {
         endTimestamp={gameData.endTimeStamp}
         currentScore={gameData.currentScore}
         maxPossibleScore={gameData.maxPossibleScore}
+        resetQuiz={reset}
       />
     </div>
   );

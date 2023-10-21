@@ -11,7 +11,8 @@ const EndModal = (props) => {
     endTimestamp,
     currentScore,
     maxPossibleScore,
-    title
+    title,
+    resetQuiz
   } = props;
 
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const EndModal = (props) => {
 
   const onClickRetry = (e) => {
     e.preventDefault();
-    navigate(0);
+    resetQuiz();
   };
 
   const onClickShare = (e) => {
@@ -104,7 +105,8 @@ EndModal.propTypes = {
   endTimestamp: PropTypes.objectOf(Date),
   currentScore: PropTypes.number,
   maxPossibleScore: PropTypes.number,
-  title: PropTypes.string
+  title: PropTypes.string,
+  resetQuiz: PropTypes.func
 };
 
 export default EndModal;

@@ -12,16 +12,16 @@ const QuizHeader = (props) => {
     onTimerExpire
   } = props;
 
-  const setTimer = () => {
-    const d = new Date();
-    d.setSeconds(d.getSeconds() + allowedGameSeconds);
-    return d;
-  };
+  // const setTimer = () => {
+  //   const d = new Date();
+  //   d.setSeconds(d.getSeconds() + allowedGameSeconds);
+  //   return d;
+  // };
 
   return (
     <div className='quiz-header'>
       <Timer
-        expiryTimestamp={setTimer()}
+        allowedGameSeconds={allowedGameSeconds}
         onEnd={onTimerExpire}
         isGameRunning={isGameRunning}
       />
