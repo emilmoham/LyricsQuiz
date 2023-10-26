@@ -21,7 +21,7 @@ function Home() {
   return (
     <div className='home-main-container'>
       <div className='begin-quiz-form'>
-        <h1>Weclome to Lyric Quiz</h1>
+        <h1>Welcome to Lyrics Quiz</h1>
         <h3>
           Copy the URL for a song from{' '}
           <a href='https://genius.com' target='_blank' rel='noreferrer'>
