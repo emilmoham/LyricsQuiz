@@ -1,11 +1,11 @@
 :root {
-  --primary-color: #865DFF;
-  --secondary-color: #E384FF;
+  --primary-color: #865dff;
+  --secondary-color: #e384ff;
   --background-color: #191825;
   --text-color: white;
   --missed-word-text-color: red;
 
-  --primary-hover: #48318A;
+  --primary-hover: #48318a;
 }
 
 /* */
@@ -65,7 +65,7 @@ body {
 
 .begin-quiz-form .validation-error-container {
   margin: 0.5rem 0;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .begin-quiz-form button {
@@ -80,8 +80,6 @@ body {
 .begin-quiz-form button:hover {
   background-color: var(--primary-hover);
 }
-
-
 
 .quiz-container {
   display: flex;
@@ -98,13 +96,12 @@ body {
 }
 
 .quiz-header {
-  background-color:  var(--primary-color);
+  background-color: var(--primary-color);
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 
 .song-title {
   margin: 0;
@@ -114,14 +111,13 @@ body {
 
 .header-side-content {
   margin: 0;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   font-size: 0.8rem;
 }
 
-
 .lyrics-container {
   padding: 0 1rem 20rem 1rem;
-  
+
   flex-grow: 1;
   overflow-y: scroll;
 }
@@ -151,7 +147,7 @@ body {
   color: var(--text-color);
 }
 
-.end-quiz-button:hover  {
+.end-quiz-button:hover {
   background-color: var(--primary-color);
   cursor: pointer;
 }
@@ -162,7 +158,7 @@ input.answer-input {
   border: none;
 
   font-size: 1rem;
-  padding: .5rem 0rem;
+  padding: 0.5rem 0rem;
 
   background-color: var(--secondary-color);
   color: var(--text-color);
@@ -171,30 +167,30 @@ input.answer-input {
   border-radius: 0;
 }
 
-
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
 input.answer-input::placeholder {
-  opacity: .75;
+  opacity: 0.75;
   color: white;
 }
 
 @media screen and (min-width: 600px) and (min-height: 600px) {
   .song-title {
     font-size: 1.75rem;
-    padding: .8rem 0rem;
+    padding: 0.8rem 0rem;
   }
 
   .header-side-content {
     font-size: 1.2rem;
-    padding: 0 .8rem;
+    padding: 0 0.8rem;
   }
 
   .input-container input {
     font-size: 1.5rem;
-    padding: .8rem 0;
+    padding: 0.8rem 0;
   }
 }
 
@@ -204,23 +200,23 @@ input.answer-input::placeholder {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-container {
   position: absolute;
   top: 25%;
   left: 50%;
-  transform: translate(-50%, -50%); 
-  background-color: var(--background-color); 
+  transform: translate(-50%, -50%);
+  background-color: var(--background-color);
   padding: 20px;
 
   width: 30vh;
-  overflow-y: auto; 
+  overflow-y: auto;
 
   border-radius: 10px;
 
-  border: rgba(200,200,200, 0.8);
+  border: rgba(200, 200, 200, 0.8);
   color: var(--text-color);
 
   display: flex;
@@ -238,7 +234,7 @@ button.close-modal-button {
   margin: 10px;
 
   border: none;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: var(--text-color);
 
   border-radius: 15%;
@@ -249,21 +245,21 @@ button.close-modal-button {
 }
 
 button.close-modal-button:hover {
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .modal-container h1 {
-  margin: .5rem 0 ;
+  margin: 0.5rem 0;
 }
 
 .modal-container h3 {
-  margin: .5rem 0;
+  margin: 0.5rem 0;
 }
 
 .modal-container button.menu-button {
   border-radius: 50px;
   border: none;
-  padding: .3rem .6rem;
+  padding: 0.3rem 0.6rem;
   background-color: var(--primary-color);
   color: var(--text-color);
   margin: 1rem 0;
@@ -275,7 +271,7 @@ button.close-modal-button:hover {
 }
 
 .modal-container button.menu-button:disabled {
-  background-color: #AAAAAA;
+  background-color: #aaaaaa;
 }
 
 .spacer {
