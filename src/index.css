@@ -131,6 +131,7 @@ body {
   flex-direction: row;
   background-color: var(--secondary-color);
   padding: 0.5rem;
+  position: relative;
 }
 
 .end-quiz-button {
@@ -138,9 +139,12 @@ body {
   border-radius: 50px;
   border: none;
 
-  position: fixed;
-  height: 2.5rem;
-  width: 5rem;
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
   text-align: center;
   padding: 0 1rem;
 
@@ -201,18 +205,21 @@ input.answer-input::placeholder {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .modal-container {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: var(--background-color);
+  position: relative;
+
+  margin-top: 50px;
   padding: 20px;
 
-  width: 30vh;
-  overflow-y: auto;
+  width: 300px;
 
   border-radius: 10px;
 
