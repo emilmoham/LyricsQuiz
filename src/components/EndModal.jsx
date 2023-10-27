@@ -11,8 +11,8 @@ const EndModal = (props) => {
     endTimestamp,
     currentScore,
     maxPossibleScore,
-    title,
-    resetQuiz
+    title
+    // resetQuiz
   } = props;
 
   const navigate = useNavigate();
@@ -58,7 +58,8 @@ const EndModal = (props) => {
 
   const onClickRetry = (e) => {
     e.preventDefault();
-    resetQuiz();
+    // resetQuiz();
+    navigate(null);
   };
 
   const onClickShare = (e) => {

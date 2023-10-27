@@ -90,7 +90,7 @@ function useGameData() {
   function loadSong(song) {
     if (song === undefined || song === null) return;
     axios
-      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/getGameData/${song}`)
+      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/GameData/${song}`)
       .then(
         (response) => {
           setRawData(response.data);
