@@ -104,6 +104,7 @@ function Quiz() {
         currentScore={gameData.currentScore}
         maxPossibleScore={gameData.maxPossibleScore}
         resetQuiz={reset}
+        title={gameData.title}
       />
     </div>
   );
