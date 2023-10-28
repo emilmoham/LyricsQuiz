@@ -58,8 +58,7 @@ const EndModal = (props) => {
 
   const onClickRetry = (e) => {
     e.preventDefault();
-    // resetQuiz();
-    navigate(null);
+    navigate(0);
   };
 
   const onClickShare = (e) => {
