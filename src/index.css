@@ -149,6 +149,8 @@ body {
   padding: 0 1rem;
 
   color: var(--text-color);
+
+  z-index: 10;
 }
 
 .end-quiz-button:hover {
@@ -210,9 +212,11 @@ input.answer-input::placeholder {
   align-items: center;
   flex-direction: column;
   overflow: hidden;
+  z-index: 20;
 }
 
 .modal-container {
+  z-index: 30;
   background-color: var(--background-color);
   position: relative;
 
