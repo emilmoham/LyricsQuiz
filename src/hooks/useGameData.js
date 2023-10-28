@@ -5,7 +5,7 @@ import { convertToLogicalWord } from '../models/Helpers';
 
 function useGameData() {
   const [rawData, setRawData] = useState(null);
-  const [title, setTitle] = useState('Loading...123');
+  const [title, setTitle] = useState('Loading...');
   const [lyrics, setLyrics] = useState([]);
   const [answerMap, setAnswerMap] = useState(new Map());
 
