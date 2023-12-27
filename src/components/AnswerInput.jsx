@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const AnswerInput = (props) => {
   const { isGameRunning, checkAnswer } = props;
+
+  const hiddenInputField = useRef();
+  const answerInputField = useRef();
 
   const [inputValue, setInputValue] = useState('');
 
@@ -10,19 +13,27 @@ const AnswerInput = (props) => {
     setInputValue(input);
     if (checkAnswer(input)) {
       setInputValue('');
+
+      // Clear the auto correct buffer on mobile
+      hiddenInputField.current?.focus();
+      answerInputField.current?.focus();
     }
   };
 
   return (
-    <input
-      autoFocus
-      className='answer-input'
-      disabled={!isGameRunning}
-      placeholder='Enter Lyrics Here'
-      type='text'
-      value={inputValue}
-      onChange={(e) => onInputChange(e.target.value)}
-    />
+    <>
+      <input className='auto-correct-fix' ref={hiddenInputField} />
+      <input
+        ref={answerInputField}
+        autoFocus
+        className='answer-input'
+        disabled={!isGameRunning}
+        placeholder='Enter Lyrics Here'
+        type='text'
+        value={inputValue}
+        onChange={(e) => onInputChange(e.target.value)}
+      />
+    </>
   );
 };
 
