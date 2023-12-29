@@ -21,8 +21,9 @@ function SearchBar(props) {
 
   const handleSearch = useCallback(
     (query, accept) => {
-      if (query === undefined || query === null || typeof query !== 'string')
+      if (query === undefined || query === null || typeof query !== 'string') {
         return [];
+      }
 
       query = query.trim();
       if (query.length === 0) return [];
