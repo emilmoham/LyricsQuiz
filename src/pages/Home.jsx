@@ -1,44 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isValidGeniusUrl } from '../constants';
+import SearchBar from '../components/SearchBar';
 
 function Home() {
   const navigate = useNavigate();
 
-  const inputRef = useRef();
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [value, setValue] = useState(null);
 
-  const onClickBegin = () => {
-    const input = inputRef.current.value.trim();
-    const matches = [...input.matchAll(isValidGeniusUrl)];
-
-    if (matches === null || matches.length !== 1) {
-      setShowValidationError(true);
-    } else {
-      navigate(`/${matches[0][1]}`);
-    }
-  };
+  const onClickBegin = useCallback(() => {
+    if (!value) return;
+    navigate(value.result.path);
+  }, [value, navigate]);
 
   return (
-    <div className='home-main-container'>
-      <div className='begin-quiz-form'>
-        <h1>Welcome to Lyrics Quiz</h1>
-        <h3>
-          Copy the URL for a song from{' '}
-          <a href='https://genius.com' target='_blank' rel='noreferrer'>
-            Genius.com
-          </a>
-        </h3>
-        <input
-          ref={inputRef}
-          placeholder='Paste the URL here: (i.e. https://genius.com/The-champs-tequila-lyric)'
-        />
-        {showValidationError && (
-          <div className='validation-error-container'>
-            That URL doesn&apost look right, please check it and try again
-          </div>
-        )}
-        <button onClick={onClickBegin}>Generate your quiz</button>
+    <div className='launcher'>
+      <div className='launcher__form'>
+        <h1>Welcome to <span className='launcher__title'>Lyrics Quiz</span></h1>
+        <SearchBar value={value} setValue={setValue} />
+        <button
+          className='launcher__button launcher__button--hoverable'
+          onClick={onClickBegin}
+        >
+          Generate your quiz
+        </button>
       </div>
     </div>
   );
