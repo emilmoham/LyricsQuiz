@@ -40,10 +40,10 @@ function Quiz() {
 
   function onClickEndQuizButton(e) {
     e.preventDefault();
-    if (gameData.isGameOver) {
-      setShowResults(true);
-    } else {
+    if (gameData.isGameRunning) {
       gameData.endQuiz();
+    } else {
+      setShowResults(true);
     }
   }
 
