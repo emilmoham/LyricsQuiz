@@ -292,3 +292,10 @@ button.end-control {
   height: 100%;
 }
 /* End Search Component */
+
+.auto-correct-fix {
+  width: 0px;
+  height: 0px;
+  background-color: #ffffff00;
+  border: none;
+}
