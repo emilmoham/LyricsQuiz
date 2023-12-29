@@ -37,19 +37,8 @@ body {
   box-shadow: 3px 3px var(--primary-hover);
 
   color: var(--text-color);
-}
 
-.begin-quiz-form h1 {
-  margin: 0.5rem 0;
-}
-
-.begin-quiz-form h3 {
-  margin: 1rem 0;
-}
-
-.launcher__title {
-  text-decoration: 0;
-  color: #ffff33;
+  width: 300px;
 }
 
 .launcher__button {
