@@ -15,7 +15,9 @@ function Home() {
   return (
     <div className='launcher'>
       <div className='launcher__form'>
-        <h1>Welcome to <span className='launcher__title'>Lyrics Quiz</span></h1>
+        <h1>
+          Welcome to <span className='launcher__title'>Lyrics Quiz</span>
+        </h1>
         <SearchBar value={value} setValue={setValue} />
         <button
           className='launcher__button launcher__button--hoverable'

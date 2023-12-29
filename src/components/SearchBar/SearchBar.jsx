@@ -5,10 +5,7 @@ import GeniusResult from './GeniusResult';
 import axios from 'axios';
 
 function SearchBar(props) {
-  const {
-    value,
-    setValue
-  } = props;
+  const { value, setValue } = props;
 
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -17,32 +14,41 @@ function SearchBar(props) {
     setInputValue(event.target.value);
   });
 
-  const debouncedInputChangeHandler = useMemo(() => debounce(inputChangeHandler, 300), [inputChangeHandler]);
+  const debouncedInputChangeHandler = useMemo(
+    () => debounce(inputChangeHandler, 300),
+    [inputChangeHandler]
+  );
 
-  const handleSearch = useCallback((query, accept) => {
-    if (query === undefined || query === null || typeof query !== 'string') return [];
+  const handleSearch = useCallback(
+    (query, accept) => {
+      if (query === undefined || query === null || typeof query !== 'string')
+        return [];
 
-    query = query.trim();
-    if (query.length === 0) return [];
+      query = query.trim();
+      if (query.length === 0) return [];
 
-    const encodedQuery = encodeURIComponent(query);
-    axios.get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/Genius/search?q=${encodedQuery}`)
-      .then((response) => {
-        if (accept) {
-          let newOptions = [];
+      const encodedQuery = encodeURIComponent(query);
+      axios
+        .get(
+          `${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/Genius/search?q=${encodedQuery}`
+        )
+        .then((response) => {
+          if (accept) {
+            let newOptions = [];
 
-          if (value) {
-            newOptions = [value];
+            if (value) {
+              newOptions = [value];
+            }
+
+            if (response) {
+              newOptions = [...newOptions, ...response.data.response.hits];
+            }
+            setOptions(newOptions);
           }
-
-          if (response) {
-            newOptions = [...newOptions, ...response.data.response.hits];
-          }
-          setOptions(newOptions);
-        }
-      }
-      );
-  }, [value, setOptions]);
+        });
+    },
+    [value, setOptions]
+  );
 
   useEffect(() => {
     let accept = true;
@@ -54,12 +60,14 @@ function SearchBar(props) {
 
     handleSearch(inputValue, accept);
 
-    return () => { accept = false; };
+    return () => {
+      accept = false;
+    };
   }, [value, inputValue, setOptions, handleSearch]);
 
   return (
     <Autocomplete
-      id="genius-song-search"
+      id='genius-song-search'
       sx={{
         input: {
           color: '#fff'
@@ -69,7 +77,9 @@ function SearchBar(props) {
       filterOptions={(x) => x}
       options={options}
       value={value}
-      noOptionsText={inputValue?.length === 0 ? 'Search for a song' : 'No matches'}
+      noOptionsText={
+        inputValue?.length === 0 ? 'Search for a song' : 'No matches'
+      }
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
@@ -82,7 +92,7 @@ function SearchBar(props) {
               color: '#fff'
             }
           }}
-          label="Search for a song"
+          label='Search for a song'
           fullWidth
           variant='filled'
         />
