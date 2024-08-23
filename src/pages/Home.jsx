@@ -10,12 +10,14 @@ function Home() {
   const [timed, setTimed] = useState(true);
 
   const onClickBegin = useCallback(() => {
+    console.log(timed);
+
     if (!song) return;
     navigate({
       pathname: song.result.path,
-      search: `?timed=${timed}`
+      search: `?timed=${timed ? 1 : 0})`
     });
-  }, [song, navigate]);
+  }, [song, navigate, timed]);
 
   const handleChangeTiming = (event) => {
     setTimed(event.target.checked);

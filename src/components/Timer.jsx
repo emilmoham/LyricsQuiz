@@ -27,8 +27,10 @@ const Timer = (props) => {
   useEffect(() => {
     if (isGameRunning) {
       restart(setTimer());
+      console.log('timer started');
     } else {
       pause();
+      console.log('timer stopped');
     }
   }, [isGameRunning, restart, pause]);
 

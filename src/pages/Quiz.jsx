@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import useGameData from '../hooks/useGameData';
 
 import QuizHeader from '../components/QuizHeader';
@@ -10,6 +10,7 @@ import EndModal from '../components/EndModal';
 
 function Quiz() {
   const { song } = useParams();
+  const [searchParams] = useSearchParams();
 
   // Game Data
   const gameData = useGameData();
@@ -72,6 +73,7 @@ function Quiz() {
         maxPossibleScore={gameData.maxPossibleScore}
         isGameRunning={gameData.isGameRunning}
         onTimerExpire={gameData.endQuiz}
+        timed={searchParams.get('timed') === '1'}
       />
 
       <div className='user-input-container'>

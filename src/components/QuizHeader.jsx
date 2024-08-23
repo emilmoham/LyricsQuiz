@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Timer from './Timer';
+import Stopwatch from './Stopwatch';
 
 const QuizHeader = (props) => {
   const {
@@ -9,16 +10,20 @@ const QuizHeader = (props) => {
     currentScore,
     maxPossibleScore,
     isGameRunning,
-    onTimerExpire
+    onTimerExpire,
+    timed
   } = props;
 
   return (
     <div className='quiz-header'>
-      <Timer
-        allowedGameSeconds={allowedGameSeconds}
-        onEnd={onTimerExpire}
-        isGameRunning={isGameRunning}
-      />
+      {timed
+        ? <Timer
+            allowedGameSeconds={allowedGameSeconds}
+            onEnd={onTimerExpire}
+            isGameRunning={isGameRunning}
+          />
+        : <Stopwatch isGameRunning={isGameRunning} />
+      }
       <h1 className='song-title'>{title}</h1>
       <h3 className='header-side-content score'>
         {currentScore}/{maxPossibleScore}
@@ -33,7 +38,8 @@ QuizHeader.propTypes = {
   currentScore: PropTypes.number,
   maxPossibleScore: PropTypes.number,
   isGameRunning: PropTypes.bool,
-  onTimerExpire: PropTypes.func
+  onTimerExpire: PropTypes.func,
+  timed: PropTypes.bool
 };
 
 export default QuizHeader;
