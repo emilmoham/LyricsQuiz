@@ -15,7 +15,7 @@ function Home() {
     if (!song) return;
     navigate({
       pathname: song.result.path,
-      search: `?timed=${timed ? 1 : 0})`
+      search: `?timed=${timed ? 1 : 0}`
     });
   }, [song, navigate, timed]);
 
