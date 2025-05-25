@@ -94,6 +94,6 @@ jobs:
           script: |
             cd /home/emilmoham/LyricsQuiz && ls -t -1 | tail -n +2 | xargs rm -rf
             cd /home/emilmoham/artifacts && rm -rf *
-      - uses: geekyeggo/delete-artifact@v1
+      - uses: geekyeggo/delete-artifact@v5
         with:
           name: app-artifacts
