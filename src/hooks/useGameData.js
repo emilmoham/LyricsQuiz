@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Line } from '../models/Line';
 import axios from 'axios';
 import { convertToLogicalWord } from '../models/Helpers';
+// import { mockData } from '../mockData';
 
 function useGameData() {
   const [rawData, setRawData] = useState(null);
@@ -88,6 +89,9 @@ function useGameData() {
   }
 
   function loadSong(song) {
+    // Uncomment the following lines to use mock song data
+    // setRawData(mockData);
+    // return;
     if (song === undefined || song === null) return;
     axios
       .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/GameData/${song}`)

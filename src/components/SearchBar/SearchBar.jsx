@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { debounce, TextField, Autocomplete } from '@mui/material';
 import GeniusResult from './GeniusResult';
 import axios from 'axios';
+// import { mockSearch } from '../../mockSearch';
 
 function SearchBar(props) {
   const { value, setValue } = props;
@@ -27,6 +28,15 @@ function SearchBar(props) {
 
       query = query.trim();
       if (query.length === 0) return [];
+
+      // Uncomment to use mock data:
+      // let newOptions = [];
+      // if (value) {
+      //   newOptions = [value];
+      // }
+      // newOptions = [...newOptions, ...mockSearch];
+      // setOptions(newOptions);
+      // return;
 
       const encodedQuery = encodeURIComponent(query);
       axios
