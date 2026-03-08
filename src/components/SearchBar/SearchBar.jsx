@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { debounce, TextField, Autocomplete } from '@mui/material';
-import GeniusResult from './GeniusResult';
 import axios from 'axios';
 // import { mockSearch } from '../../mockSearch';
 
@@ -41,7 +40,7 @@ function SearchBar(props) {
       const encodedQuery = encodeURIComponent(query);
       axios
         .get(
-          `${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/Genius/search?q=${encodedQuery}`
+          `${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/Lrclib/search?q=${encodedQuery}`
         )
         .then((response) => {
           if (accept) {
@@ -52,7 +51,7 @@ function SearchBar(props) {
             }
 
             if (response) {
-              newOptions = [...newOptions, ...response.data.response.hits];
+              newOptions = [...newOptions, ...response.data.data];
             }
             setOptions(newOptions);
           }
@@ -84,7 +83,8 @@ function SearchBar(props) {
           color: '#fff'
         }
       }}
-      getOptionLabel={(option) => option.result.full_title}
+      getOptionKey={(option) => option.id}
+      getOptionLabel={(option) => `${option.name} by ${option.artistName}`}
       filterOptions={(x) => x}
       options={options}
       value={value}
@@ -108,7 +108,6 @@ function SearchBar(props) {
           variant='filled'
         />
       )}
-      renderOption={GeniusResult}
     />
   );
 }

@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/:song',
+    path: '/:songId',
     element: <Quiz />
   }
 ]);

@@ -18,6 +18,10 @@ body {
   background-color: var(--background-color);
 }
 
+.blankline {
+  margin: 70px;
+}
+
 .launcher {
   display: flex;
   justify-content: center;

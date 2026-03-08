@@ -20,6 +20,14 @@ const LineContainer = (props) => {
     return word.hiddenText + word.separator;
   };
 
+  if (line.words.length === 0) {
+    return (
+      <div
+        className='blankline'
+       />
+    );
+  }
+
   return (
     <div className='line'>
       <p>{line.words.map((word, key) => renderWord(word, key))}</p>

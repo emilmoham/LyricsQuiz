@@ -9,7 +9,7 @@ import StartModal from '../components/StartModal';
 import EndModal from '../components/EndModal';
 
 function Quiz() {
-  const { song } = useParams();
+  const { songId } = useParams();
   const [searchParams] = useSearchParams();
 
   // Game Data
@@ -20,8 +20,8 @@ function Quiz() {
 
   // Load quiz data
   useEffect(() => {
-    gameData.loadSong(song);
-  }, [song]);
+    gameData.loadSong(songId);
+  }, [songId]);
 
   // Watch for game end
   useEffect(() => {
@@ -67,7 +67,7 @@ function Quiz() {
   return (
     <div className='quiz-container'>
       <QuizHeader
-        title={gameData.title}
+        title={`${gameData.title} by ${gameData.artist}`}
         allowedGameSeconds={gameData.allowedGameSeconds}
         currentScore={gameData.currentScore}
         maxPossibleScore={gameData.maxPossibleScore}

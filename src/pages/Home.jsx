@@ -10,11 +10,9 @@ function Home() {
   const [timed, setTimed] = useState(true);
 
   const onClickBegin = useCallback(() => {
-    console.log(timed);
-
     if (!song) return;
     navigate({
-      pathname: song.result.path,
+      pathname: `/${song.id}`,
       search: `?timed=${timed ? 1 : 0}`
     });
   }, [song, navigate, timed]);

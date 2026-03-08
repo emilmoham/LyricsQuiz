@@ -7,10 +7,10 @@ import { convertToLogicalWord } from '../models/Helpers';
 function useGameData() {
   const [rawData, setRawData] = useState(null);
   const [title, setTitle] = useState('Loading...');
+  const [artist, setArtist] = useState('');
   const [lyrics, setLyrics] = useState([]);
   const [answerMap, setAnswerMap] = useState(new Map());
 
-  // eslint-disable-next-line no-unused-vars
   const [currentScore, setCurrentScore] = useState(0);
   const [maxPossibleScore, setMaxPossibleScore] = useState(0);
 
@@ -72,6 +72,7 @@ function useGameData() {
     }
 
     setTitle(rawData.title);
+    setArtist(rawData.artist);
 
     const lyricsSet = parseLyrics(rawData.lyrics);
     const initialAnswerMap = initializeAnswerMap(lyricsSet);
@@ -88,16 +89,19 @@ function useGameData() {
     setEndTimestamp(null);
   }
 
-  function loadSong(song) {
+  function loadSong(songId) {
     // Uncomment the following lines to use mock song data
-    // setRawData(mockData);
-    // return;
-    if (song === undefined || song === null) return;
+    // setRawData(mockData.data);
+
+    if (Number.isNaN(songId)) {
+      setTitle('Invalid Song ID');
+      return;
+    }
     axios
-      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/GameData/${song}`)
+      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/GameData/${songId}`)
       .then(
         (response) => {
-          setRawData(response.data);
+          setRawData(response.data.data);
         },
         (reason) => {
           setTitle('Error');
@@ -113,6 +117,7 @@ function useGameData() {
 
   return {
     title,
+    artist,
     lyrics,
     answerMap,
     currentScore,
