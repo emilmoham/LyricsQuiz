@@ -13,10 +13,10 @@ This repository contains the code for the front end of my
 
 This project depends on an
 [API project](https://github.com/emilmoham/LyricsQuizAPI) to retrieve lyrics
-data from [Genius.com](https://genius.com) and also to power the search feature.
-Mock data has been provided to be used in development and therefore it is
-**not required** to run the API project when working on this project however
-setting it up can be useful.
+and song metadata from [Lrclib.net](https://lrclib.net/). A docker compose file
+which runs the API locally has been included for convenience. Mock data has also
+been provided to be used in development and therefore it is **not required** to
+run the API project when working on this project.
 
 For instructions on how to use the mock data see the
 [Using Mock Data](#using-mock-data) section.
@@ -24,9 +24,9 @@ For instructions on how to use the mock data see the
 For instructions on how to set up the API project see
 [here](https://github.com/emilmoham/LyricsQuizAPI).
 
-If you are using working on this project and would like to use the API in
-development, you must provide .env file in the project root with the following
-key:
+If you are using working on this project and would like to use
+the API in development, you must provide .env file in the project root with the
+following key:
 
 ```ini
 # .env
@@ -45,7 +45,10 @@ git clone https://github.com/emilmoham/LyricsQuiz.git
 # 2. Run npm install
 npm i
 
-# 3. Start the development server
+# 3. (Optional) Run the API locally with docker
+docker compose up -d
+
+# 4. Start the development server
 npm run start
 ```
 
