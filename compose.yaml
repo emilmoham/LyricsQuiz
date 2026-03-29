@@ -1,0 +1,12 @@
+services:
+  lyrics-quiz-api:
+    image: emilmoham/lyrics-quiz-api:latest
+    environment:
+      - SONG_DB=/data/Songs.db
+    ports:
+      - "8011:8011"
+    volumes:
+      - songs-db:/data
+
+volumes:
+  songs-db:
