@@ -1,0 +1,14 @@
+.github
+.husky
+.vscode
+build
+node_modules
+.env*
+.eslintrc.js
+.gitignore
+.prettierignore
+.prettierrc.js
+compose.yaml
+Dockerfile
+Dockerfile.dev
+README.md
