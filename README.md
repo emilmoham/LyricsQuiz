@@ -25,12 +25,15 @@ For instructions on how to set up the API project see
 [here](https://github.com/emilmoham/LyricsQuizAPI).
 
 If you are using working on this project and would like to use
-the API in development, you must provide .env file in the project root with the
-following key:
+the API in development, you must provide a valid proxy link in `package.json`.
+If you're running the API locally, adjust the `proxy` setting in `package.json`
+to the use the host and port the API is avaiable on.
 
-```ini
-# .env
-REACT_APP_LYRICS_QUIZ_API_HOST=http://localhost:8011
+```json
+// package.json
+  ...
+  "proxy": "http://localhost:8011",
+  ...
 ```
 
 The above configuration represents a development environment which is running

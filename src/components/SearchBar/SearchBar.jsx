@@ -40,7 +40,7 @@ function SearchBar(props) {
       const encodedQuery = encodeURIComponent(query);
       axios
         .get(
-          `${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/Lrclib/search?q=${encodedQuery}`
+          `/api/Lrclib/search?q=${encodedQuery}`
         )
         .then((response) => {
           if (accept) {

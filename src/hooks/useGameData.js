@@ -98,7 +98,7 @@ function useGameData() {
       return;
     }
     axios
-      .get(`${process.env.REACT_APP_LYRICS_QUIZ_API_HOST}/GameData/${songId}`)
+      .get(`/api/GameData/${songId}`)
       .then(
         (response) => {
           setRawData(response.data.data);
